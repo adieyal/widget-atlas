@@ -29,6 +29,7 @@
   ],
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.json",
+    "prepare": "npm run build",
     "test": "jest",
     "lint": "echo 'lint not configured yet'"
   },
