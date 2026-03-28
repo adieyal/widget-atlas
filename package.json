@@ -25,7 +25,9 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "src",
+    "tsconfig.json"
   ],
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.json",
