@@ -90,6 +90,36 @@ npm run build
 npm test
 ```
 
+## Smoke Test Consumer
+
+There is a minimal consumer app under `smoke/scratch-consumer` that installs this package from the local repo and renders the catalogue UI through the public package contract.
+
+```bash
+cd smoke/scratch-consumer
+npm install
+npm run build
+```
+
+This is useful before switching a real consumer from a local path dependency to a Git dependency.
+
+## Git Dependency Handoff
+
+Once this repository is pushed to a remote, consumers can replace the local path dependency with a Git URL:
+
+```json
+{
+  "dependencies": {
+    "widget-atlas": "git+ssh://<host>/<org>/widget-atlas.git#<tag-or-sha>"
+  }
+}
+```
+
+Recommended handoff steps for a consumer app:
+- switch `widget-atlas` from a local `file:` dependency to the Git URL
+- run `npm install`
+- run the consumer build and smoke tests
+- pin to a tag once the package boundary is stable
+
 ## Restoke Example
 
 If you are using this package inside Restoke, keep the app-specific metadata and usage generation in Restoke and consume only the public package APIs:
