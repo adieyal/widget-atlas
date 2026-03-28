@@ -11,6 +11,10 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./usage-data": {
+      "types": "./dist/usage-data.d.ts",
+      "import": "./dist/usage-data.js"
+    },
     "./elements": {
       "types": "./dist/elements.d.ts",
       "import": "./dist/elements.js"

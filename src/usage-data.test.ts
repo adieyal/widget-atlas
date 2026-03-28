@@ -2,7 +2,7 @@ import {
   clearWidgetUsageData,
   getWidgetUsageData,
   setWidgetUsageData,
-} from './index.js';
+} from './usage-data.js';
 
 describe('widget usage data', () => {
   beforeEach(() => {
