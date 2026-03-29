@@ -1,6 +1,7 @@
 import { catalogue } from './core/catalogue.js';
 import { setWidgetUrlBuilder } from './core/url-strategy.js';
 import type { WidgetMetadata } from './core/types.js';
+import { widgetAtlasThemeStyles } from './components/shared-styles.js';
 
 import './elements.js';
 
@@ -123,6 +124,13 @@ describe('widget-atlas parity surface', () => {
 
     expect(detail.filters.useCase).toBe('data-display');
     expect(detail.results.map((widget) => widget.tag)).toEqual(['rs-table']);
+  });
+
+  test('shared theme styles resolve public tokens through internal defaults', () => {
+    expect(widgetAtlasThemeStyles.cssText).toContain('--_widget-atlas-surface: var(--widget-atlas-surface, #ffffff);');
+    expect(widgetAtlasThemeStyles.cssText).not.toContain(
+      '--widget-atlas-surface: var(--widget-atlas-surface, #ffffff);'
+    );
   });
 
   test('widget-catalogue-page renders stat summary cards for total, stable, beta, and new widgets', async () => {

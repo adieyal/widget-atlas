@@ -26,7 +26,7 @@ export class WidgetDemoPage extends LitElement {
         min-height: 100vh;
         background:
           radial-gradient(circle at top right, rgb(29 122 82 / 0.07), transparent 30%),
-          linear-gradient(180deg, var(--widget-atlas-surface-muted), #f7faf5 18rem);
+          linear-gradient(180deg, var(--_widget-atlas-surface-muted), #f7faf5 18rem);
       }
 
       .sidebar {
@@ -34,16 +34,16 @@ export class WidgetDemoPage extends LitElement {
         top: 0;
         align-self: start;
         height: 100vh;
-        padding: var(--widget-atlas-space-2xl) 0;
-        border-right: 1px solid var(--widget-atlas-border);
+        padding: var(--_widget-atlas-space-2xl) 0;
+        border-right: 1px solid var(--_widget-atlas-border);
         background: rgb(255 255 255 / 0.74);
         backdrop-filter: blur(14px);
       }
 
       .sidebar__label {
-        padding: 0 var(--widget-atlas-space-lg);
-        margin-bottom: var(--widget-atlas-space-md);
-        color: var(--widget-atlas-text-soft);
+        padding: 0 var(--_widget-atlas-space-lg);
+        margin-bottom: var(--_widget-atlas-space-md);
+        color: var(--_widget-atlas-text-soft);
         font-size: 0.74rem;
         font-weight: 700;
         letter-spacing: 0.08em;
@@ -59,30 +59,30 @@ export class WidgetDemoPage extends LitElement {
       .sidebar__link {
         display: block;
         width: 100%;
-        padding: 0.65rem var(--widget-atlas-space-lg);
+        padding: 0.65rem var(--_widget-atlas-space-lg);
         border: none;
         border-left: 3px solid transparent;
         background: transparent;
-        color: var(--widget-atlas-text-muted);
+        color: var(--_widget-atlas-text-muted);
         text-align: left;
         cursor: pointer;
       }
 
       .sidebar__link:hover {
         background: rgb(23 34 24 / 0.04);
-        color: var(--widget-atlas-text);
+        color: var(--_widget-atlas-text);
       }
 
       .sidebar__link--active {
-        color: var(--widget-atlas-accent-strong);
-        border-left-color: var(--widget-atlas-accent);
-        background: color-mix(in srgb, var(--widget-atlas-accent) 9%, white);
+        color: var(--_widget-atlas-accent-strong);
+        border-left-color: var(--_widget-atlas-accent);
+        background: color-mix(in srgb, var(--_widget-atlas-accent) 9%, white);
       }
 
       .demo-main {
-        max-width: calc(var(--widget-atlas-layout-max) - 8rem);
+        max-width: calc(var(--_widget-atlas-layout-max) - 8rem);
         width: 100%;
-        padding: var(--widget-atlas-space-2xl);
+        padding: var(--_widget-atlas-space-2xl);
         box-sizing: border-box;
       }
 
@@ -90,34 +90,34 @@ export class WidgetDemoPage extends LitElement {
         display: inline-flex;
         align-items: center;
         gap: 0.4rem;
-        margin-bottom: var(--widget-atlas-space-lg);
-        color: var(--widget-atlas-accent-strong);
+        margin-bottom: var(--_widget-atlas-space-lg);
+        color: var(--_widget-atlas-accent-strong);
         text-decoration: none;
         font-weight: 600;
       }
 
       .back-link:hover {
-        color: var(--widget-atlas-accent);
+        color: var(--_widget-atlas-accent);
       }
 
       .demo-header {
-        margin-bottom: var(--widget-atlas-space-2xl);
-        padding-bottom: var(--widget-atlas-space-xl);
-        border-bottom: 1px solid var(--widget-atlas-border);
+        margin-bottom: var(--_widget-atlas-space-2xl);
+        padding-bottom: var(--_widget-atlas-space-xl);
+        border-bottom: 1px solid var(--_widget-atlas-border);
       }
 
       .header-title-row {
         display: flex;
         align-items: center;
-        gap: var(--widget-atlas-space-sm);
+        gap: var(--_widget-atlas-space-sm);
         flex-wrap: wrap;
-        margin-bottom: var(--widget-atlas-space-sm);
+        margin-bottom: var(--_widget-atlas-space-sm);
       }
 
       h1 {
         margin: 0;
         font-family: var(
-          --widget-atlas-font-display,
+          --_widget-atlas-font-display,
           'Fraunces',
           'DM Serif Display',
           Georgia,
@@ -151,79 +151,79 @@ export class WidgetDemoPage extends LitElement {
       }
 
       .status-chip--success {
-        background: var(--widget-atlas-success-soft);
-        color: var(--widget-atlas-success);
+        background: var(--_widget-atlas-success-soft);
+        color: var(--_widget-atlas-success);
       }
 
       .status-chip--brand {
-        background: var(--widget-atlas-accent-soft);
-        color: var(--widget-atlas-accent-strong);
+        background: var(--_widget-atlas-accent-soft);
+        color: var(--_widget-atlas-accent-strong);
       }
 
       .status-chip--accent {
-        background: var(--widget-atlas-info-soft);
-        color: var(--widget-atlas-info);
+        background: var(--_widget-atlas-info-soft);
+        color: var(--_widget-atlas-info);
       }
 
       .status-chip--warning {
-        background: var(--widget-atlas-warning-soft);
-        color: var(--widget-atlas-warning);
+        background: var(--_widget-atlas-warning-soft);
+        color: var(--_widget-atlas-warning);
       }
 
       .status-chip--danger {
-        background: var(--widget-atlas-danger-soft);
-        color: var(--widget-atlas-danger);
+        background: var(--_widget-atlas-danger-soft);
+        color: var(--_widget-atlas-danger);
       }
 
       .status-chip--muted {
-        background: var(--widget-atlas-surface-strong);
-        color: var(--widget-atlas-text-muted);
+        background: var(--_widget-atlas-surface-strong);
+        color: var(--_widget-atlas-text-muted);
       }
 
       .demo-subtitle {
         max-width: 40rem;
-        margin: 0 0 var(--widget-atlas-space-md);
-        color: var(--widget-atlas-text-muted);
+        margin: 0 0 var(--_widget-atlas-space-md);
+        color: var(--_widget-atlas-text-muted);
         font-size: 1.02rem;
       }
 
       .header-meta {
         display: flex;
         flex-wrap: wrap;
-        gap: var(--widget-atlas-space-xs);
+        gap: var(--_widget-atlas-space-xs);
       }
 
       .meta-chip {
-        border: 1px solid var(--widget-atlas-border);
-        background: var(--widget-atlas-surface);
-        color: var(--widget-atlas-text-soft);
+        border: 1px solid var(--_widget-atlas-border);
+        background: var(--_widget-atlas-surface);
+        color: var(--_widget-atlas-text-soft);
         text-transform: none;
         font-weight: 600;
       }
 
       .meta-chip code {
         font-family: var(
-          --widget-atlas-font-mono,
+          --_widget-atlas-font-mono,
           'JetBrains Mono',
           'SFMono-Regular',
           ui-monospace,
           monospace
         );
         font-size: 0.8rem;
-        color: var(--widget-atlas-text);
+        color: var(--_widget-atlas-text);
       }
 
       .demo-section,
       .example-section {
-        margin-bottom: var(--widget-atlas-space-2xl);
+        margin-bottom: var(--_widget-atlas-space-2xl);
       }
 
       .section-kicker {
         display: inline-flex;
         align-items: center;
         gap: 0.45rem;
-        margin-bottom: var(--widget-atlas-space-xs);
-        color: var(--widget-atlas-text-soft);
+        margin-bottom: var(--_widget-atlas-space-xs);
+        color: var(--_widget-atlas-text-soft);
         font-size: 0.74rem;
         font-weight: 700;
         letter-spacing: 0.08em;
@@ -234,7 +234,7 @@ export class WidgetDemoPage extends LitElement {
         content: '';
         width: 1.4rem;
         height: 1px;
-        background: var(--widget-atlas-border-strong);
+        background: var(--_widget-atlas-border-strong);
       }
 
       .section-heading {
@@ -244,8 +244,8 @@ export class WidgetDemoPage extends LitElement {
 
       .section-description,
       .example-description {
-        margin: var(--widget-atlas-space-xs) 0 var(--widget-atlas-space-lg);
-        color: var(--widget-atlas-text-muted);
+        margin: var(--_widget-atlas-space-xs) 0 var(--_widget-atlas-space-lg);
+        color: var(--_widget-atlas-text-muted);
       }
 
       .example-section h3 {
@@ -254,42 +254,42 @@ export class WidgetDemoPage extends LitElement {
       }
 
       .example-preview {
-        margin-bottom: var(--widget-atlas-space-md);
+        margin-bottom: var(--_widget-atlas-space-md);
       }
 
       .guidelines-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: var(--widget-atlas-space-lg);
+        gap: var(--_widget-atlas-space-lg);
       }
 
       .guideline-card {
-        padding: var(--widget-atlas-space-lg);
-        border-radius: var(--widget-atlas-radius-md);
-        border: 1px solid var(--widget-atlas-border);
+        padding: var(--_widget-atlas-space-lg);
+        border-radius: var(--_widget-atlas-radius-md);
+        border: 1px solid var(--_widget-atlas-border);
       }
 
       .guideline-card--do {
-        background: var(--widget-atlas-success-soft);
-        border-color: color-mix(in srgb, var(--widget-atlas-success) 35%, white);
+        background: var(--_widget-atlas-success-soft);
+        border-color: color-mix(in srgb, var(--_widget-atlas-success) 35%, white);
       }
 
       .guideline-card--dont {
-        background: var(--widget-atlas-danger-soft);
-        border-color: color-mix(in srgb, var(--widget-atlas-danger) 35%, white);
+        background: var(--_widget-atlas-danger-soft);
+        border-color: color-mix(in srgb, var(--_widget-atlas-danger) 35%, white);
       }
 
       .guideline-card--notes {
         grid-column: 1 / -1;
-        background: var(--widget-atlas-info-soft);
-        border-color: color-mix(in srgb, var(--widget-atlas-info) 35%, white);
+        background: var(--_widget-atlas-info-soft);
+        border-color: color-mix(in srgb, var(--_widget-atlas-info) 35%, white);
       }
 
       .guideline-card__header {
         display: flex;
         align-items: center;
-        gap: var(--widget-atlas-space-xs);
-        margin-bottom: var(--widget-atlas-space-sm);
+        gap: var(--_widget-atlas-space-xs);
+        margin-bottom: var(--_widget-atlas-space-sm);
       }
 
       .guideline-card__icon {
@@ -303,17 +303,17 @@ export class WidgetDemoPage extends LitElement {
       }
 
       .guideline-card--do .guideline-card__icon {
-        background: var(--widget-atlas-success);
+        background: var(--_widget-atlas-success);
         color: white;
       }
 
       .guideline-card--dont .guideline-card__icon {
-        background: var(--widget-atlas-danger);
+        background: var(--_widget-atlas-danger);
         color: white;
       }
 
       .guideline-card--notes .guideline-card__icon {
-        background: var(--widget-atlas-info);
+        background: var(--_widget-atlas-info);
         color: white;
       }
 
@@ -327,37 +327,37 @@ export class WidgetDemoPage extends LitElement {
       }
 
       .api-section + .api-section {
-        margin-top: var(--widget-atlas-space-lg);
+        margin-top: var(--_widget-atlas-space-lg);
       }
 
       .api-section h3 {
-        margin: 0 0 var(--widget-atlas-space-sm);
+        margin: 0 0 var(--_widget-atlas-space-sm);
         font-size: 1.1rem;
       }
 
       .related-components {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: var(--widget-atlas-space-md);
+        gap: var(--_widget-atlas-space-md);
       }
 
       .related-link {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: var(--widget-atlas-space-sm);
-        padding: var(--widget-atlas-space-md);
-        border-radius: var(--widget-atlas-radius-md);
-        border: 1px solid var(--widget-atlas-border);
-        background: var(--widget-atlas-surface);
+        gap: var(--_widget-atlas-space-sm);
+        padding: var(--_widget-atlas-space-md);
+        border-radius: var(--_widget-atlas-radius-md);
+        border: 1px solid var(--_widget-atlas-border);
+        background: var(--_widget-atlas-surface);
         color: inherit;
         text-decoration: none;
-        box-shadow: var(--widget-atlas-shadow-sm);
+        box-shadow: var(--_widget-atlas-shadow-sm);
       }
 
       .related-link:hover {
-        border-color: var(--widget-atlas-border-strong);
-        box-shadow: var(--widget-atlas-shadow-md);
+        border-color: var(--_widget-atlas-border-strong);
+        box-shadow: var(--_widget-atlas-shadow-md);
       }
 
       .related-name {
@@ -367,10 +367,10 @@ export class WidgetDemoPage extends LitElement {
 
       .related-tag {
         display: block;
-        margin-top: var(--widget-atlas-space-2xs);
-        color: var(--widget-atlas-text-soft);
+        margin-top: var(--_widget-atlas-space-2xs);
+        color: var(--_widget-atlas-text-soft);
         font-family: var(
-          --widget-atlas-font-mono,
+          --_widget-atlas-font-mono,
           'JetBrains Mono',
           'SFMono-Regular',
           ui-monospace,
@@ -380,18 +380,18 @@ export class WidgetDemoPage extends LitElement {
       }
 
       .related-arrow {
-        color: var(--widget-atlas-accent);
+        color: var(--_widget-atlas-accent);
         font-size: 1.1rem;
       }
 
       .error {
-        margin: var(--widget-atlas-space-2xl) auto;
+        margin: var(--_widget-atlas-space-2xl) auto;
         max-width: 40rem;
-        padding: var(--widget-atlas-space-xl);
-        border-radius: var(--widget-atlas-radius-md);
-        border: 1px solid color-mix(in srgb, var(--widget-atlas-danger) 34%, white);
-        background: var(--widget-atlas-danger-soft);
-        color: var(--widget-atlas-danger);
+        padding: var(--_widget-atlas-space-xl);
+        border-radius: var(--_widget-atlas-radius-md);
+        border: 1px solid color-mix(in srgb, var(--_widget-atlas-danger) 34%, white);
+        background: var(--_widget-atlas-danger-soft);
+        color: var(--_widget-atlas-danger);
       }
 
       @media (max-width: 960px) {
@@ -402,17 +402,17 @@ export class WidgetDemoPage extends LitElement {
         .sidebar {
           position: static;
           height: auto;
-          padding: var(--widget-atlas-space-md) var(--widget-atlas-space-md) 0;
+          padding: var(--_widget-atlas-space-md) var(--_widget-atlas-space-md) 0;
           border-right: none;
-          border-bottom: 1px solid var(--widget-atlas-border);
+          border-bottom: 1px solid var(--_widget-atlas-border);
           background: transparent;
         }
 
         .sidebar__nav {
           display: flex;
-          gap: var(--widget-atlas-space-xs);
+          gap: var(--_widget-atlas-space-xs);
           overflow: auto;
-          padding-bottom: var(--widget-atlas-space-sm);
+          padding-bottom: var(--_widget-atlas-space-sm);
         }
 
         .sidebar__link {
@@ -424,12 +424,12 @@ export class WidgetDemoPage extends LitElement {
         }
 
         .sidebar__link--active {
-          border-bottom-color: var(--widget-atlas-accent);
+          border-bottom-color: var(--_widget-atlas-accent);
         }
 
         .demo-main {
           max-width: none;
-          padding: var(--widget-atlas-space-lg);
+          padding: var(--_widget-atlas-space-lg);
         }
 
         .guidelines-grid {

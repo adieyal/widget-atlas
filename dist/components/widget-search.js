@@ -150,15 +150,15 @@ WidgetSearch.styles = [
       .toolbar {
         display: flex;
         flex-wrap: wrap;
-        gap: var(--widget-atlas-space-md);
+        gap: var(--_widget-atlas-space-md);
         align-items: end;
-        padding: var(--widget-atlas-space-md);
-        border: 1px solid var(--widget-atlas-border);
-        border-radius: var(--widget-atlas-radius-md);
+        padding: var(--_widget-atlas-space-md);
+        border: 1px solid var(--_widget-atlas-border);
+        border-radius: var(--_widget-atlas-radius-md);
         background:
           radial-gradient(circle at top right, rgb(29 122 82 / 0.08), transparent 28%),
-          var(--widget-atlas-surface);
-        box-shadow: var(--widget-atlas-shadow-sm);
+          var(--_widget-atlas-surface);
+        box-shadow: var(--_widget-atlas-shadow-sm);
       }
 
       .search-field {
@@ -168,8 +168,8 @@ WidgetSearch.styles = [
       .search-label,
       .filter-label {
         display: block;
-        margin-bottom: var(--widget-atlas-space-2xs);
-        color: var(--widget-atlas-text-muted);
+        margin-bottom: var(--_widget-atlas-space-2xs);
+        color: var(--_widget-atlas-text-muted);
         font-size: 0.78rem;
         font-weight: 700;
         letter-spacing: 0.05em;
@@ -183,7 +183,7 @@ WidgetSearch.styles = [
       .filters {
         display: flex;
         flex-wrap: wrap;
-        gap: var(--widget-atlas-space-sm);
+        gap: var(--_widget-atlas-space-sm);
       }
 
       .filter-field {

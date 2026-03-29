@@ -14,9 +14,9 @@ export class WidgetEventsTable extends LitElement {
 
       .table-shell {
         overflow: auto;
-        border: 1px solid var(--widget-atlas-border);
-        border-radius: var(--widget-atlas-radius-md);
-        background: var(--widget-atlas-surface);
+        border: 1px solid var(--_widget-atlas-border);
+        border-radius: var(--_widget-atlas-radius-md);
+        background: var(--_widget-atlas-surface);
       }
 
       table {
@@ -28,21 +28,21 @@ export class WidgetEventsTable extends LitElement {
       th,
       td {
         padding: 0.85rem 1rem;
-        border-bottom: 1px solid var(--widget-atlas-border);
+        border-bottom: 1px solid var(--_widget-atlas-border);
         text-align: left;
         vertical-align: top;
       }
 
       th {
-        background: var(--widget-atlas-surface-muted);
-        color: var(--widget-atlas-text);
+        background: var(--_widget-atlas-surface-muted);
+        color: var(--_widget-atlas-text);
         font-size: 0.82rem;
         text-transform: uppercase;
         letter-spacing: 0.05em;
       }
 
       td {
-        color: var(--widget-atlas-text-muted);
+        color: var(--_widget-atlas-text-muted);
         font-size: 0.92rem;
       }
 
@@ -52,14 +52,14 @@ export class WidgetEventsTable extends LitElement {
 
       code {
         font-family: var(
-          --widget-atlas-font-mono,
+          --_widget-atlas-font-mono,
           'JetBrains Mono',
           'SFMono-Regular',
           ui-monospace,
           monospace
         );
         font-size: 0.82rem;
-        color: var(--widget-atlas-text);
+        color: var(--_widget-atlas-text);
       }
 
       .badges {
@@ -75,8 +75,8 @@ export class WidgetEventsTable extends LitElement {
         font-size: 0.68rem;
         font-weight: 700;
         text-transform: uppercase;
-        background: var(--widget-atlas-surface-muted);
-        color: var(--widget-atlas-text-soft);
+        background: var(--_widget-atlas-surface-muted);
+        color: var(--_widget-atlas-text-soft);
       }
     `,
   ];

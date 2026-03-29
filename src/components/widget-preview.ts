@@ -26,10 +26,10 @@ export class WidgetPreview extends LitElement {
 
       .preview-shell {
         overflow: hidden;
-        border: 1px solid var(--widget-atlas-border);
-        border-radius: var(--widget-atlas-radius-md);
-        background: var(--widget-atlas-surface);
-        box-shadow: var(--widget-atlas-shadow-sm);
+        border: 1px solid var(--_widget-atlas-border);
+        border-radius: var(--_widget-atlas-radius-md);
+        background: var(--_widget-atlas-surface);
+        box-shadow: var(--_widget-atlas-shadow-sm);
       }
 
       .preview-toolbar {
@@ -37,23 +37,23 @@ export class WidgetPreview extends LitElement {
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
-        gap: var(--widget-atlas-space-sm) var(--widget-atlas-space-md);
-        padding: var(--widget-atlas-space-sm) var(--widget-atlas-space-md);
-        border-bottom: 1px solid var(--widget-atlas-border);
+        gap: var(--_widget-atlas-space-sm) var(--_widget-atlas-space-md);
+        padding: var(--_widget-atlas-space-sm) var(--_widget-atlas-space-md);
+        border-bottom: 1px solid var(--_widget-atlas-border);
         background:
           linear-gradient(180deg, rgb(255 255 255 / 0.75), transparent),
-          var(--widget-atlas-surface-muted);
+          var(--_widget-atlas-surface-muted);
       }
 
       .toolbar-group {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: var(--widget-atlas-space-xs);
+        gap: var(--_widget-atlas-space-xs);
       }
 
       .toolbar-label {
-        color: var(--widget-atlas-text-muted);
+        color: var(--_widget-atlas-text-muted);
         font-size: 0.77rem;
         font-weight: 700;
         letter-spacing: 0.06em;
@@ -67,15 +67,15 @@ export class WidgetPreview extends LitElement {
       }
 
       .preset-button.is-active {
-        border-color: color-mix(in srgb, var(--widget-atlas-accent) 36%, white);
-        background: var(--widget-atlas-accent-soft);
-        color: var(--widget-atlas-accent-strong);
+        border-color: color-mix(in srgb, var(--_widget-atlas-accent) 36%, white);
+        background: var(--_widget-atlas-accent-soft);
+        color: var(--_widget-atlas-accent-strong);
       }
 
       .preset-size {
-        color: var(--widget-atlas-text-soft);
+        color: var(--_widget-atlas-text-soft);
         font-family: var(
-          --widget-atlas-font-mono,
+          --_widget-atlas-font-mono,
           'JetBrains Mono',
           'SFMono-Regular',
           ui-monospace,
@@ -87,7 +87,7 @@ export class WidgetPreview extends LitElement {
       .range-row {
         display: flex;
         align-items: center;
-        gap: var(--widget-atlas-space-sm);
+        gap: var(--_widget-atlas-space-sm);
         min-width: min(100%, 18rem);
       }
 
@@ -97,9 +97,9 @@ export class WidgetPreview extends LitElement {
 
       .width-value {
         min-width: 4rem;
-        color: var(--widget-atlas-text-soft);
+        color: var(--_widget-atlas-text-soft);
         font-family: var(
-          --widget-atlas-font-mono,
+          --_widget-atlas-font-mono,
           'JetBrains Mono',
           'SFMono-Regular',
           ui-monospace,
@@ -110,11 +110,11 @@ export class WidgetPreview extends LitElement {
       }
 
       .preview-canvas {
-        padding: var(--widget-atlas-space-lg);
+        padding: var(--_widget-atlas-space-lg);
         background:
           linear-gradient(90deg, rgb(23 34 24 / 0.03) 1px, transparent 1px),
           linear-gradient(rgb(23 34 24 / 0.03) 1px, transparent 1px),
-          var(--widget-atlas-surface-muted);
+          var(--_widget-atlas-surface-muted);
         background-size: 24px 24px;
       }
 
@@ -122,15 +122,15 @@ export class WidgetPreview extends LitElement {
         width: min(100%, var(--widget-atlas-preview-width, 100%));
         min-height: 6rem;
         margin: 0 auto;
-        padding: var(--widget-atlas-space-lg);
-        border-radius: var(--widget-atlas-radius-sm);
-        border: 1px dashed var(--widget-atlas-border-strong);
-        background: var(--widget-atlas-surface);
+        padding: var(--_widget-atlas-space-lg);
+        border-radius: var(--_widget-atlas-radius-sm);
+        border: 1px dashed var(--_widget-atlas-border-strong);
+        background: var(--_widget-atlas-surface);
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
-        gap: var(--widget-atlas-space-sm);
+        gap: var(--_widget-atlas-space-sm);
         box-sizing: border-box;
         transition: width 180ms ease;
       }

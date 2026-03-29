@@ -22,25 +22,25 @@ export class WidgetCataloguePage extends LitElement {
         min-height: 100vh;
         background:
           radial-gradient(circle at top right, rgb(29 122 82 / 0.06), transparent 32%),
-          linear-gradient(180deg, var(--widget-atlas-surface-muted), #f8fbf7 18rem);
+          linear-gradient(180deg, var(--_widget-atlas-surface-muted), #f8fbf7 18rem);
       }
 
       .catalogue-container {
-        max-width: var(--widget-atlas-layout-max);
+        max-width: var(--_widget-atlas-layout-max);
         margin: 0 auto;
-        padding: var(--widget-atlas-space-2xl) var(--widget-atlas-space-lg);
+        padding: var(--_widget-atlas-space-2xl) var(--_widget-atlas-space-lg);
       }
 
       .catalogue-header {
-        margin-bottom: var(--widget-atlas-space-2xl);
+        margin-bottom: var(--_widget-atlas-space-2xl);
       }
 
       .hero {
         display: grid;
         grid-template-columns: minmax(0, 1.5fr) minmax(18rem, 1fr);
-        gap: var(--widget-atlas-space-xl);
+        gap: var(--_widget-atlas-space-xl);
         align-items: end;
-        margin-bottom: var(--widget-atlas-space-xl);
+        margin-bottom: var(--_widget-atlas-space-xl);
       }
 
       .eyebrow {
@@ -49,8 +49,8 @@ export class WidgetCataloguePage extends LitElement {
         gap: 0.45rem;
         padding: 0.32rem 0.7rem;
         border-radius: 999px;
-        background: var(--widget-atlas-accent-soft);
-        color: var(--widget-atlas-accent-strong);
+        background: var(--_widget-atlas-accent-soft);
+        color: var(--_widget-atlas-accent-strong);
         font-size: 0.72rem;
         font-weight: 700;
         letter-spacing: 0.08em;
@@ -58,9 +58,9 @@ export class WidgetCataloguePage extends LitElement {
       }
 
       h1 {
-        margin: var(--widget-atlas-space-sm) 0 var(--widget-atlas-space-sm);
+        margin: var(--_widget-atlas-space-sm) 0 var(--_widget-atlas-space-sm);
         font-family: var(
-          --widget-atlas-font-display,
+          --_widget-atlas-font-display,
           'Fraunces',
           'DM Serif Display',
           Georgia,
@@ -74,28 +74,28 @@ export class WidgetCataloguePage extends LitElement {
       .subtitle {
         max-width: 38rem;
         margin: 0;
-        color: var(--widget-atlas-text-muted);
+        color: var(--_widget-atlas-text-muted);
         font-size: 1.05rem;
       }
 
       .stats-grid {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: var(--widget-atlas-space-sm);
+        gap: var(--_widget-atlas-space-sm);
       }
 
       .stat-card {
-        padding: var(--widget-atlas-space-md);
-        border-radius: var(--widget-atlas-radius-md);
-        border: 1px solid var(--widget-atlas-border);
-        background: var(--widget-atlas-surface);
-        box-shadow: var(--widget-atlas-shadow-sm);
+        padding: var(--_widget-atlas-space-md);
+        border-radius: var(--_widget-atlas-radius-md);
+        border: 1px solid var(--_widget-atlas-border);
+        background: var(--_widget-atlas-surface);
+        box-shadow: var(--_widget-atlas-shadow-sm);
       }
 
       .stat-label {
         display: block;
-        margin-bottom: var(--widget-atlas-space-xs);
-        color: var(--widget-atlas-text-soft);
+        margin-bottom: var(--_widget-atlas-space-xs);
+        color: var(--_widget-atlas-text-soft);
         font-size: 0.74rem;
         font-weight: 700;
         letter-spacing: 0.06em;
@@ -109,27 +109,27 @@ export class WidgetCataloguePage extends LitElement {
       }
 
       .stat-value--stable {
-        color: var(--widget-atlas-success);
+        color: var(--_widget-atlas-success);
       }
 
       .stat-value--beta {
-        color: var(--widget-atlas-accent-strong);
+        color: var(--_widget-atlas-accent-strong);
       }
 
       .stat-value--new {
-        color: var(--widget-atlas-info);
+        color: var(--_widget-atlas-info);
       }
 
       .search-section {
-        margin-bottom: var(--widget-atlas-space-2xl);
+        margin-bottom: var(--_widget-atlas-space-2xl);
       }
 
       .results-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: var(--widget-atlas-space-sm);
-        margin-bottom: var(--widget-atlas-space-lg);
+        gap: var(--_widget-atlas-space-sm);
+        margin-bottom: var(--_widget-atlas-space-lg);
       }
 
       .results-header h2,
@@ -141,21 +141,21 @@ export class WidgetCataloguePage extends LitElement {
       .results-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-        gap: var(--widget-atlas-space-lg);
+        gap: var(--_widget-atlas-space-lg);
       }
 
       .empty-state {
-        padding: var(--widget-atlas-space-2xl);
+        padding: var(--_widget-atlas-space-2xl);
         text-align: center;
-        border: 1px dashed var(--widget-atlas-border-strong);
-        border-radius: var(--widget-atlas-radius-md);
-        background: var(--widget-atlas-surface);
+        border: 1px dashed var(--_widget-atlas-border-strong);
+        border-radius: var(--_widget-atlas-radius-md);
+        background: var(--_widget-atlas-surface);
       }
 
       .empty-state p {
-        margin: var(--widget-atlas-space-xs) auto 0;
+        margin: var(--_widget-atlas-space-xs) auto 0;
         max-width: 28rem;
-        color: var(--widget-atlas-text-muted);
+        color: var(--_widget-atlas-text-muted);
       }
 
       @media (max-width: 900px) {
@@ -170,7 +170,7 @@ export class WidgetCataloguePage extends LitElement {
 
       @media (max-width: 640px) {
         .catalogue-container {
-          padding-inline: var(--widget-atlas-space-md);
+          padding-inline: var(--_widget-atlas-space-md);
         }
 
         .stats-grid {

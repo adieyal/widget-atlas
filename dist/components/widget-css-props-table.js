@@ -46,9 +46,9 @@ WidgetCssPropsTable.styles = [
 
       .table-shell {
         overflow: auto;
-        border: 1px solid var(--widget-atlas-border);
-        border-radius: var(--widget-atlas-radius-md);
-        background: var(--widget-atlas-surface);
+        border: 1px solid var(--_widget-atlas-border);
+        border-radius: var(--_widget-atlas-radius-md);
+        background: var(--_widget-atlas-surface);
       }
 
       table {
@@ -60,21 +60,21 @@ WidgetCssPropsTable.styles = [
       th,
       td {
         padding: 0.85rem 1rem;
-        border-bottom: 1px solid var(--widget-atlas-border);
+        border-bottom: 1px solid var(--_widget-atlas-border);
         text-align: left;
         vertical-align: top;
       }
 
       th {
-        background: var(--widget-atlas-surface-muted);
-        color: var(--widget-atlas-text);
+        background: var(--_widget-atlas-surface-muted);
+        color: var(--_widget-atlas-text);
         font-size: 0.82rem;
         text-transform: uppercase;
         letter-spacing: 0.05em;
       }
 
       td {
-        color: var(--widget-atlas-text-muted);
+        color: var(--_widget-atlas-text-muted);
         font-size: 0.92rem;
       }
 
@@ -84,14 +84,14 @@ WidgetCssPropsTable.styles = [
 
       code {
         font-family: var(
-          --widget-atlas-font-mono,
+          --_widget-atlas-font-mono,
           'JetBrains Mono',
           'SFMono-Regular',
           ui-monospace,
           monospace
         );
         font-size: 0.82rem;
-        color: var(--widget-atlas-text);
+        color: var(--_widget-atlas-text);
       }
     `,
 ];
