@@ -1,7 +1,9 @@
 import { LitElement } from 'lit';
+import './widget-card.js';
+import './widget-category-section.js';
 import './widget-search.js';
 export declare class WidgetCataloguePage extends LitElement {
-    static styles: import("lit").CSSResult;
+    static styles: import("lit").CSSResult[];
     private searchQuery;
     private searchResults;
     private isSearching;
@@ -10,6 +12,7 @@ export declare class WidgetCataloguePage extends LitElement {
     private handleSearch;
     private clearSearch;
     private renderCard;
+    private renderStats;
     private renderSearchResults;
     private renderCategories;
     render(): import("lit-html").TemplateResult<1>;

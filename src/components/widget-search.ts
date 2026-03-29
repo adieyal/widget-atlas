@@ -1,7 +1,16 @@
 import { LitElement, css, html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { catalogue } from '../core/catalogue.js';
-import type { WidgetMetadata, Category, Status, SearchOptions, UseCase } from '../core/types.js';
+import type { Category, SearchOptions, Status, UseCase, WidgetMetadata } from '../core/types.js';
+import {
+  CATEGORY_LABELS,
+  CATEGORY_ORDER,
+  STATUS_LABELS,
+  STATUS_ORDER,
+  USE_CASE_LABELS,
+  USE_CASE_ORDER,
+} from './catalogue-constants.js';
+import { widgetAtlasControlStyles, widgetAtlasThemeStyles } from './shared-styles.js';
 
 export interface WidgetSearchResultsDetail {
   results: WidgetMetadata[];
@@ -11,45 +20,75 @@ export interface WidgetSearchResultsDetail {
 
 @customElement('widget-search')
 export class WidgetSearch extends LitElement {
-  static styles = css`
-    :host {
-      display: block;
-    }
+  static styles = [
+    widgetAtlasThemeStyles,
+    widgetAtlasControlStyles,
+    css`
+      :host {
+        display: block;
+      }
 
-    .search-container {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      align-items: end;
-    }
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--widget-atlas-space-md);
+        align-items: end;
+        padding: var(--widget-atlas-space-md);
+        border: 1px solid var(--widget-atlas-border);
+        border-radius: var(--widget-atlas-radius-md);
+        background:
+          radial-gradient(circle at top right, rgb(29 122 82 / 0.08), transparent 28%),
+          var(--widget-atlas-surface);
+        box-shadow: var(--widget-atlas-shadow-sm);
+      }
 
-    .search-input,
-    .filter-select {
-      border: 1px solid #d0d5dd;
-      border-radius: 6px;
-      padding: 8px 10px;
-      font: inherit;
-      font-size: 14px;
-      background: #fff;
-      color: #101828;
-    }
+      .search-field {
+        flex: 1 1 18rem;
+      }
 
-    .search-input {
-      min-width: 220px;
-      flex: 1;
-    }
+      .search-label,
+      .filter-label {
+        display: block;
+        margin-bottom: var(--widget-atlas-space-2xs);
+        color: var(--widget-atlas-text-muted);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
 
-    .filters {
-      display: flex;
-      gap: 8px;
-    }
-  `;
+      .search-input {
+        width: 100%;
+      }
+
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--widget-atlas-space-sm);
+      }
+
+      .filter-field {
+        min-width: 10rem;
+      }
+
+      .filter-select {
+        width: 100%;
+      }
+
+      @media (max-width: 840px) {
+        .filter-field {
+          flex: 1 1 12rem;
+        }
+      }
+    `,
+  ];
 
   @property({ type: String }) query = '';
   @property({ type: String, attribute: 'use-case' }) useCase: UseCase | '' = '';
   @property({ type: String }) category: Category | '' = '';
   @property({ type: String }) status: Status | '' = '';
   @property({ type: Number, attribute: 'debounce-delay' }) debounceDelay = 250;
+  @property({ type: Boolean, attribute: 'show-use-case-filter' }) showUseCaseFilter = true;
   @property({ type: Boolean, attribute: 'show-category-filter' }) showCategoryFilter = true;
   @property({ type: Boolean, attribute: 'show-status-filter' }) showStatusFilter = true;
   @property({ type: String }) placeholder = 'Search components...';
@@ -98,6 +137,11 @@ export class WidgetSearch extends LitElement {
     this.debounceTimer = setTimeout(() => this.performSearch(), this.debounceDelay);
   }
 
+  private onUseCaseChange(event: Event): void {
+    this.useCase = ((event.target as HTMLSelectElement).value || '') as UseCase | '';
+    this.performSearch();
+  }
+
   private onCategoryChange(event: Event): void {
     this.category = ((event.target as HTMLSelectElement).value || '') as Category | '';
     this.performSearch();
@@ -110,39 +154,73 @@ export class WidgetSearch extends LitElement {
 
   render() {
     return html`
-      <div class="search-container">
-        <input
-          class="search-input"
-          type="search"
-          placeholder=${this.placeholder}
-          .value=${this.query}
-          @input=${this.onQueryInput}
-        />
-
+      <div class="toolbar">
+        <label class="search-field">
+          <span class="search-label">Search</span>
+          <input
+            class="control-input search-input"
+            type="search"
+            placeholder=${this.placeholder}
+            .value=${this.query}
+            @input=${this.onQueryInput}
+          />
+        </label>
         <div class="filters">
+          ${this.showUseCaseFilter
+            ? html`
+                <label class="filter-field">
+                  <span class="filter-label">Use Case</span>
+                  <select
+                    class="control-select filter-select"
+                    name="use-case"
+                    .value=${this.useCase}
+                    @change=${this.onUseCaseChange}
+                  >
+                    <option value="">All use cases</option>
+                    ${USE_CASE_ORDER.map(
+                      (useCase) =>
+                        html`<option value=${useCase}>${USE_CASE_LABELS[useCase]}</option>`
+                    )}
+                  </select>
+                </label>
+              `
+            : nothing}
           ${this.showCategoryFilter
             ? html`
-                <select class="filter-select" .value=${this.category} @change=${this.onCategoryChange}>
-                  <option value="">All categories</option>
-                  <option value="atoms">Atoms</option>
-                  <option value="molecules">Molecules</option>
-                  <option value="organisms">Organisms</option>
-                  <option value="charts">Charts</option>
-                  <option value="features">Features</option>
-                  <option value="integrations">Integrations</option>
-                </select>
+                <label class="filter-field">
+                  <span class="filter-label">Category</span>
+                  <select
+                    class="control-select filter-select"
+                    name="category"
+                    .value=${this.category}
+                    @change=${this.onCategoryChange}
+                  >
+                    <option value="">All categories</option>
+                    ${CATEGORY_ORDER.map(
+                      (category) =>
+                        html`<option value=${category}>${CATEGORY_LABELS[category]}</option>`
+                    )}
+                  </select>
+                </label>
               `
             : nothing}
           ${this.showStatusFilter
             ? html`
-                <select class="filter-select" .value=${this.status} @change=${this.onStatusChange}>
-                  <option value="">All statuses</option>
-                  <option value="stable">Stable</option>
-                  <option value="new">New</option>
-                  <option value="alpha">Alpha</option>
-                  <option value="deprecated">Deprecated</option>
-                  <option value="legacy">Legacy</option>
-                </select>
+                <label class="filter-field">
+                  <span class="filter-label">Status</span>
+                  <select
+                    class="control-select filter-select"
+                    name="status"
+                    .value=${this.status}
+                    @change=${this.onStatusChange}
+                  >
+                    <option value="">All statuses</option>
+                    ${STATUS_ORDER.map(
+                      (status) =>
+                        html`<option value=${status}>${STATUS_LABELS[status]}</option>`
+                    )}
+                  </select>
+                </label>
               `
             : nothing}
         </div>

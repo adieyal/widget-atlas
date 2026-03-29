@@ -52,6 +52,14 @@ describe('widget-atlas web components', () => {
     expect(customElements.get('widget-search')).toBeDefined();
     expect(customElements.get('widget-catalogue-page')).toBeDefined();
     expect(customElements.get('widget-demo-page')).toBeDefined();
+    expect(customElements.get('widget-card')).toBeDefined();
+    expect(customElements.get('widget-category-section')).toBeDefined();
+    expect(customElements.get('widget-code-block')).toBeDefined();
+    expect(customElements.get('widget-preview')).toBeDefined();
+    expect(customElements.get('widget-props-table')).toBeDefined();
+    expect(customElements.get('widget-events-table')).toBeDefined();
+    expect(customElements.get('widget-slots-table')).toBeDefined();
+    expect(customElements.get('widget-css-props-table')).toBeDefined();
   });
 
   test('catalogue page uses custom URL builder for widget links', async () => {
@@ -65,7 +73,18 @@ describe('widget-atlas web components', () => {
     document.body.appendChild(el);
     await el.updateComplete;
 
-    const link = el.shadowRoot.querySelector('a.widget-card');
+    const card = el.shadowRoot.querySelector('widget-card') as
+      | (HTMLElement & { shadowRoot: ShadowRoot; updateComplete?: Promise<unknown> })
+      | null;
+    const categorySection = el.shadowRoot.querySelector('widget-category-section') as
+      | (HTMLElement & { shadowRoot: ShadowRoot; updateComplete?: Promise<unknown> })
+      | null;
+    await categorySection?.updateComplete;
+    const nestedCard = categorySection?.shadowRoot.querySelector('widget-card') as
+      | (HTMLElement & { shadowRoot: ShadowRoot; updateComplete?: Promise<unknown> })
+      | null;
+    await nestedCard?.updateComplete;
+    const link = (card ?? nestedCard)?.shadowRoot.querySelector('a.card');
     expect(link?.getAttribute('href')).toBe('/custom/atoms/rs-button/');
   });
 
@@ -130,7 +149,10 @@ describe('widget-atlas web components', () => {
     document.body.appendChild(el);
     await el.updateComplete;
 
-    const previewButton = el.shadowRoot.querySelector('.example-preview [data-testid="preview-button"]');
+    const preview = el.shadowRoot.querySelector('widget-preview') as
+      | (HTMLElement & { shadowRoot: ShadowRoot })
+      | null;
+    const previewButton = preview?.shadowRoot.querySelector('[data-testid="preview-button"]');
     expect(previewButton?.textContent).toBe('Live Preview');
   });
 

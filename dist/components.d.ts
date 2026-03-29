@@ -1,3 +1,11 @@
+export { WidgetCard } from './components/widget-card.js';
+export { WidgetCategorySection } from './components/widget-category-section.js';
+export { WidgetCodeBlock } from './components/widget-code-block.js';
+export { WidgetPreview } from './components/widget-preview.js';
+export { WidgetPropsTable } from './components/widget-props-table.js';
+export { WidgetEventsTable } from './components/widget-events-table.js';
+export { WidgetSlotsTable } from './components/widget-slots-table.js';
+export { WidgetCssPropsTable } from './components/widget-css-props-table.js';
 export { WidgetSearch } from './components/widget-search.js';
 export { WidgetCataloguePage } from './components/widget-catalogue-page.js';
 export { WidgetDemoPage } from './components/widget-demo-page.js';

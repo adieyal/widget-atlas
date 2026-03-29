@@ -1,0 +1,122 @@
+import { LitElement, css, html, nothing } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import type { WidgetMetadata } from '../core/types.js';
+import { widgetAtlasThemeStyles } from './shared-styles.js';
+
+import './widget-card.js';
+
+@customElement('widget-category-section')
+export class WidgetCategorySection extends LitElement {
+  static styles = [
+    widgetAtlasThemeStyles,
+    css`
+      :host {
+        display: block;
+      }
+
+      .section {
+        margin-bottom: var(--widget-atlas-space-2xl);
+      }
+
+      .header {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--widget-atlas-space-md);
+        margin-bottom: var(--widget-atlas-space-lg);
+      }
+
+      .accent {
+        width: 0.4rem;
+        min-height: 2.25rem;
+        border-radius: 999px;
+        background: linear-gradient(
+          180deg,
+          var(--widget-atlas-accent),
+          color-mix(in srgb, var(--widget-atlas-accent) 36%, white)
+        );
+      }
+
+      .title-wrap {
+        flex: 1;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 1.35rem;
+        line-height: 1.2;
+      }
+
+      p {
+        margin: var(--widget-atlas-space-2xs) 0 0;
+        color: var(--widget-atlas-text-muted);
+      }
+
+      .count {
+        flex-shrink: 0;
+        min-width: 2rem;
+        height: 2rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 0.5rem;
+        border-radius: 999px;
+        border: 1px solid var(--widget-atlas-border);
+        background: var(--widget-atlas-surface);
+        color: var(--widget-atlas-text-muted);
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        gap: var(--widget-atlas-space-lg);
+      }
+    `,
+  ];
+
+  @property() heading = '';
+  @property() description = '';
+  @property({ attribute: false }) widgets: WidgetMetadata[] = [];
+  @property({ attribute: false }) getWidgetUrl: (widget: WidgetMetadata) => string =
+    (widget) => `#/${widget.tag}`;
+
+  render() {
+    if (!this.widgets.length) {
+      return nothing;
+    }
+
+    return html`
+      <section class="section">
+        <div class="header">
+          <div class="accent" aria-hidden="true"></div>
+          <div class="title-wrap">
+            <h2>${this.heading}</h2>
+            ${this.description ? html`<p>${this.description}</p>` : nothing}
+          </div>
+          <span class="count">${this.widgets.length}</span>
+        </div>
+        <div class="grid">
+          ${this.widgets.map(
+            (widget) => html`
+              <widget-card
+                .name=${widget.name}
+                .tag=${widget.tag}
+                .description=${widget.description}
+                .status=${widget.status}
+                .level=${widget.level}
+                .href=${this.getWidgetUrl(widget)}
+              ></widget-card>
+            `
+          )}
+        </div>
+      </section>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'widget-category-section': WidgetCategorySection;
+  }
+}

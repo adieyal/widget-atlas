@@ -2,138 +2,183 @@ import { LitElement, css, html, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { catalogue } from '../core/catalogue.js';
 import { buildWidgetUrl } from '../core/url-strategy.js';
-import type { WidgetMetadata, UseCase } from '../core/types.js';
+import type { WidgetMetadata } from '../core/types.js';
+import { USE_CASE_LABELS, USE_CASE_ORDER } from './catalogue-constants.js';
+import { widgetAtlasControlStyles, widgetAtlasThemeStyles } from './shared-styles.js';
 import type { WidgetSearchResultsDetail } from './widget-search.js';
 
+import './widget-card.js';
+import './widget-category-section.js';
 import './widget-search.js';
-
-const USE_CASE_LABELS: Record<UseCase, string> = {
-  'design-system': 'Design System',
-  buttons: 'Buttons & Links',
-  cards: 'Cards',
-  forms: 'Forms & Input',
-  feedback: 'Feedback & Status',
-  navigation: 'Navigation & Progress',
-  'data-display': 'Data Display',
-  charts: 'Charts & Visualizations',
-  layout: 'Layout',
-  modals: 'Modals & Dialogs',
-  onboarding: 'Onboarding',
-  icons: 'Icons',
-  integrations: 'Integrations',
-};
-
-const USE_CASE_ORDER: UseCase[] = [
-  'design-system',
-  'buttons',
-  'cards',
-  'forms',
-  'feedback',
-  'navigation',
-  'data-display',
-  'charts',
-  'layout',
-  'modals',
-  'onboarding',
-  'icons',
-  'integrations',
-];
 
 @customElement('widget-catalogue-page')
 export class WidgetCataloguePage extends LitElement {
-  static styles = css`
-    :host {
-      display: block;
-      color: var(--widget-atlas-text, var(--color-text, #162018));
-      font-family: var(--widget-atlas-font-body, var(--font-body, "Source Sans 3", system-ui, sans-serif));
-      line-height: 1.5;
-    }
+  static styles = [
+    widgetAtlasThemeStyles,
+    widgetAtlasControlStyles,
+    css`
+      :host {
+        display: block;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at top right, rgb(29 122 82 / 0.06), transparent 32%),
+          linear-gradient(180deg, var(--widget-atlas-surface-muted), #f8fbf7 18rem);
+      }
 
-    .catalogue-container {
-      max-width: var(--widget-atlas-layout-max, 1200px);
-      margin: 0 auto;
-      padding: var(--widget-atlas-space-lg, var(--space-lg, 1rem));
-    }
+      .catalogue-container {
+        max-width: var(--widget-atlas-layout-max);
+        margin: 0 auto;
+        padding: var(--widget-atlas-space-2xl) var(--widget-atlas-space-lg);
+      }
 
-    .widgets-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: var(--widget-atlas-space-md, var(--space-md, 0.75rem));
-    }
+      .catalogue-header {
+        margin-bottom: var(--widget-atlas-space-2xl);
+      }
 
-    .widget-card {
-      display: block;
-      border: 1px solid var(--widget-atlas-border, var(--color-border, #d7ddd5));
-      border-radius: var(--widget-atlas-radius-md, var(--radius-md, 0.625rem));
-      padding: var(--widget-atlas-space-md, var(--space-md, 0.75rem));
-      color: inherit;
-      text-decoration: none;
-      background: var(--widget-atlas-surface, var(--color-surface, #fff));
-    }
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.5fr) minmax(18rem, 1fr);
+        gap: var(--widget-atlas-space-xl);
+        align-items: end;
+        margin-bottom: var(--widget-atlas-space-xl);
+      }
 
-    .widget-card:hover {
-      border-color: var(--widget-atlas-border-strong, var(--color-border, #d7ddd5));
-    }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.32rem 0.7rem;
+        border-radius: 999px;
+        background: var(--widget-atlas-accent-soft);
+        color: var(--widget-atlas-accent-strong);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
 
-    .category-section {
-      margin-top: var(--widget-atlas-space-xl, var(--space-xl, 1.5rem));
-    }
+      h1 {
+        margin: var(--widget-atlas-space-sm) 0 var(--widget-atlas-space-sm);
+        font-family: var(
+          --widget-atlas-font-display,
+          'Fraunces',
+          'DM Serif Display',
+          Georgia,
+          serif
+        );
+        font-size: clamp(2.2rem, 4vw, 3.4rem);
+        line-height: 0.98;
+        letter-spacing: -0.04em;
+      }
 
-    .category-header {
-      display: flex;
-      align-items: center;
-      gap: var(--widget-atlas-space-sm, var(--space-sm, 0.5rem));
-      margin-bottom: var(--widget-atlas-space-sm, var(--space-sm, 0.5rem));
-    }
+      .subtitle {
+        max-width: 38rem;
+        margin: 0;
+        color: var(--widget-atlas-text-muted);
+        font-size: 1.05rem;
+      }
 
-    .category-count {
-      color: var(--widget-atlas-text-secondary, var(--color-text-secondary, #4d5d52));
-      font-size: 12px;
-      border: 1px solid var(--widget-atlas-border, var(--color-border, #d7ddd5));
-      border-radius: 999px;
-      padding: 2px var(--widget-atlas-space-sm, var(--space-sm, 0.5rem));
-    }
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: var(--widget-atlas-space-sm);
+      }
 
-    .results-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: var(--widget-atlas-space-lg, var(--space-lg, 1rem)) 0;
-    }
+      .stat-card {
+        padding: var(--widget-atlas-space-md);
+        border-radius: var(--widget-atlas-radius-md);
+        border: 1px solid var(--widget-atlas-border);
+        background: var(--widget-atlas-surface);
+        box-shadow: var(--widget-atlas-shadow-sm);
+      }
 
-    .clear-search {
-      border: none;
-      background: transparent;
-      color: var(--widget-atlas-link, var(--color-primary, #0a5c36));
-      cursor: pointer;
-    }
+      .stat-label {
+        display: block;
+        margin-bottom: var(--widget-atlas-space-xs);
+        color: var(--widget-atlas-text-soft);
+        font-size: 0.74rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
 
-    .widget-tag {
-      font-family: var(--widget-atlas-font-mono, var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace));
-      font-size: 12px;
-      color: var(--widget-atlas-text-secondary, var(--color-text-secondary, #4d5d52));
-    }
+      .stat-value {
+        font-size: clamp(1.4rem, 2vw, 2rem);
+        font-weight: 800;
+        line-height: 1;
+      }
 
-    .widget-description {
-      color: var(--widget-atlas-text-secondary, var(--color-text-secondary, #4d5d52));
-      font-size: 13px;
-      margin: var(--widget-atlas-space-sm, var(--space-sm, 0.5rem)) 0;
-    }
+      .stat-value--stable {
+        color: var(--widget-atlas-success);
+      }
 
-    h1 {
-      margin: 0;
-      font-family: var(
-        --widget-atlas-font-display,
-        var(--font-display, "DM Serif Display", Georgia, serif)
-      );
-      font-size: clamp(1.6rem, 3vw, 2.1rem);
-    }
+      .stat-value--beta {
+        color: var(--widget-atlas-accent-strong);
+      }
 
-    h2 {
-      margin: 0;
-      font-size: 1.25rem;
-    }
-  `;
+      .stat-value--new {
+        color: var(--widget-atlas-info);
+      }
+
+      .search-section {
+        margin-bottom: var(--widget-atlas-space-2xl);
+      }
+
+      .results-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--widget-atlas-space-sm);
+        margin-bottom: var(--widget-atlas-space-lg);
+      }
+
+      .results-header h2,
+      .empty-state h2 {
+        margin: 0;
+        font-size: 1.35rem;
+      }
+
+      .results-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        gap: var(--widget-atlas-space-lg);
+      }
+
+      .empty-state {
+        padding: var(--widget-atlas-space-2xl);
+        text-align: center;
+        border: 1px dashed var(--widget-atlas-border-strong);
+        border-radius: var(--widget-atlas-radius-md);
+        background: var(--widget-atlas-surface);
+      }
+
+      .empty-state p {
+        margin: var(--widget-atlas-space-xs) auto 0;
+        max-width: 28rem;
+        color: var(--widget-atlas-text-muted);
+      }
+
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .stats-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 640px) {
+        .catalogue-container {
+          padding-inline: var(--widget-atlas-space-md);
+        }
+
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    `,
+  ];
 
   @state() private searchQuery = '';
   @state() private searchResults: WidgetMetadata[] | null = null;
@@ -152,9 +197,9 @@ export class WidgetCataloguePage extends LitElement {
     this.searchResults = event.detail.results;
     this.isSearching = Boolean(
       event.detail.query ||
+        event.detail.filters.useCase ||
         event.detail.filters.category ||
-        event.detail.filters.status ||
-        event.detail.filters.useCase
+        event.detail.filters.status
     );
   }
 
@@ -163,10 +208,11 @@ export class WidgetCataloguePage extends LitElement {
     this.searchResults = null;
     this.isSearching = false;
     const search = this.shadowRoot?.querySelector('widget-search') as
-      | (HTMLElement & { query: string; category: string; status: string })
+      | (HTMLElement & { query: string; useCase: string; category: string; status: string })
       | undefined;
     if (search) {
       search.query = '';
+      search.useCase = '';
       search.category = '';
       search.status = '';
     }
@@ -174,27 +220,59 @@ export class WidgetCataloguePage extends LitElement {
 
   private renderCard(widget: WidgetMetadata) {
     return html`
-      <a class="widget-card" href=${buildWidgetUrl({ category: widget.category, tag: widget.tag })}>
-        <div><strong>${widget.name}</strong></div>
-        <div class="widget-tag">&lt;${widget.tag}&gt;</div>
-        <p class="widget-description">${widget.description}</p>
-      </a>
+      <widget-card
+        .name=${widget.name}
+        .tag=${widget.tag}
+        .description=${widget.description}
+        .status=${widget.status}
+        .level=${widget.level}
+        .href=${buildWidgetUrl({ category: widget.category, tag: widget.tag })}
+      ></widget-card>
+    `;
+  }
+
+  private renderStats() {
+    const stats = this.stats;
+    return html`
+      <div class="stats-grid">
+        <article class="stat-card">
+          <span class="stat-label">Total</span>
+          <span class="stat-value">${stats.total}</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">Stable</span>
+          <span class="stat-value stat-value--stable">${stats.byStatus.stable ?? 0}</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">Beta</span>
+          <span class="stat-value stat-value--beta">${stats.byStatus.beta ?? 0}</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">New</span>
+          <span class="stat-value stat-value--new">${stats.byStatus.new ?? 0}</span>
+        </article>
+      </div>
     `;
   }
 
   private renderSearchResults() {
     if (!this.searchResults?.length) {
-      return html`<div>No results found.</div>`;
+      return html`
+        <div class="empty-state">
+          <h2>No matching widgets</h2>
+          <p>Try a different keyword or broaden one of the filters.</p>
+        </div>
+      `;
     }
 
     return html`
-      <div class="category-section">
+      <section>
         <div class="results-header">
           <h2>Search Results (${this.searchResults.length})</h2>
-          <button class="clear-search" @click=${this.clearSearch} type="button">Clear search</button>
+          <button class="link-button" @click=${this.clearSearch} type="button">Clear search</button>
         </div>
-        <div class="widgets-grid">${this.searchResults.map((widget) => this.renderCard(widget))}</div>
-      </div>
+        <div class="results-grid">${this.searchResults.map((widget) => this.renderCard(widget))}</div>
+      </section>
     `;
   }
 
@@ -205,13 +283,12 @@ export class WidgetCataloguePage extends LitElement {
         if (!widgets?.length) return nothing;
 
         return html`
-          <section class="category-section">
-            <div class="category-header">
-              <h2>${USE_CASE_LABELS[useCase]}</h2>
-              <span class="category-count">${widgets.length}</span>
-            </div>
-            <div class="widgets-grid">${widgets.map((widget) => this.renderCard(widget))}</div>
-          </section>
+          <widget-category-section
+            heading=${USE_CASE_LABELS[useCase]}
+            .widgets=${widgets}
+            .getWidgetUrl=${(widget: WidgetMetadata) =>
+              buildWidgetUrl({ category: widget.category, tag: widget.tag })}
+          ></widget-category-section>
         `;
       })}
     `;
@@ -220,9 +297,24 @@ export class WidgetCataloguePage extends LitElement {
   render() {
     return html`
       <div class="catalogue-container">
-        <h1>Widget Library</h1>
-        <p>${this.stats.total} components</p>
-        <widget-search @widget-search-results=${this.handleSearch}></widget-search>
+        <header class="catalogue-header">
+          <div class="hero">
+            <div>
+              <span class="eyebrow">Widget Atlas</span>
+              <h1>Browse the full component catalogue.</h1>
+              <p class="subtitle">
+                Explore reusable widgets by use case, inspect status and maturity, and jump into
+                hands-on examples and API details.
+              </p>
+            </div>
+            ${this.renderStats()}
+          </div>
+        </header>
+
+        <section class="search-section">
+          <widget-search @widget-search-results=${this.handleSearch}></widget-search>
+        </section>
+
         ${this.isSearching ? this.renderSearchResults() : this.renderCategories()}
       </div>
     `;
