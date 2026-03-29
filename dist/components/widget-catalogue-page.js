@@ -214,11 +214,16 @@ WidgetCataloguePage.styles = [
       }
 
       .stat-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         padding: var(--_widget-atlas-space-md);
         border-radius: var(--_widget-atlas-radius-md);
         border: 1px solid var(--_widget-atlas-border);
         background: var(--_widget-atlas-surface);
         box-shadow: var(--_widget-atlas-shadow-sm);
+        text-align: center;
       }
 
       .stat-label {
