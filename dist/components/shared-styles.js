@@ -60,10 +60,13 @@ export const widgetAtlasThemeStyles = css `
     --_widget-atlas-space-lg: var(--widget-atlas-space-lg, 1.5rem);
     --_widget-atlas-space-xl: var(--widget-atlas-space-xl, 2rem);
     --_widget-atlas-space-2xl: var(--widget-atlas-space-2xl, 3rem);
-    --_widget-atlas-focus-ring: var(--widget-atlas-focus-ring, 0 0 0 3px rgb(29 122 82 / 0.18));
+    --_widget-atlas-focus-ring: var(--widget-atlas-focus-ring, 0 0 0 3px rgb(var(--_widget-atlas-tint) / 0.18));
     --_widget-atlas-code-bg: var(--widget-atlas-code-bg, #122118);
     --_widget-atlas-code-text: var(--widget-atlas-code-text, #eef6ef);
     --_widget-atlas-code-muted: var(--widget-atlas-code-muted, #aac7ad);
+    --_widget-atlas-tint: var(--widget-atlas-tint, 29 122 82);
+    --_widget-atlas-tint-dark: var(--widget-atlas-tint-dark, 23 34 24);
+    --_widget-atlas-surface-end: var(--widget-atlas-surface-end, #f8fbf7);
     --_widget-atlas-layout-max: var(--widget-atlas-layout-max, 1200px);
     color: var(--_widget-atlas-text);
     font-family: var(--_widget-atlas-font-body);

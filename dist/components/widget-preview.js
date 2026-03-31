@@ -250,8 +250,8 @@ WidgetPreview.styles = [
       .preview-canvas {
         padding: var(--_widget-atlas-space-lg);
         background:
-          linear-gradient(90deg, rgb(23 34 24 / 0.03) 1px, transparent 1px),
-          linear-gradient(rgb(23 34 24 / 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgb(var(--_widget-atlas-tint-dark) / 0.03) 1px, transparent 1px),
+          linear-gradient(rgb(var(--_widget-atlas-tint-dark) / 0.03) 1px, transparent 1px),
           var(--_widget-atlas-surface-muted);
         background-size: 24px 24px;
       }
