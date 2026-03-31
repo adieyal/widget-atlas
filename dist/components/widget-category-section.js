@@ -68,11 +68,7 @@ WidgetCategorySection.styles = [
         width: 0.4rem;
         min-height: 2.25rem;
         border-radius: 999px;
-        background: linear-gradient(
-          180deg,
-          var(--_widget-atlas-accent),
-          color-mix(in srgb, var(--_widget-atlas-accent) 36%, white)
-        );
+        background: var(--_widget-atlas-category-accent-bg);
       }
 
       .title-wrap {
@@ -99,9 +95,9 @@ WidgetCategorySection.styles = [
         justify-content: center;
         padding: 0 0.5rem;
         border-radius: 999px;
-        border: 1px solid var(--_widget-atlas-border);
-        background: var(--_widget-atlas-surface);
-        color: var(--_widget-atlas-text-muted);
+        border: 1px solid var(--_widget-atlas-category-count-border);
+        background: var(--_widget-atlas-category-count-bg);
+        color: var(--_widget-atlas-category-count-text);
         font-size: 0.8rem;
         font-weight: 700;
       }

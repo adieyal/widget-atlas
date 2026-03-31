@@ -52,9 +52,7 @@ WidgetCard.styles = [
         padding: var(--_widget-atlas-space-lg);
         border: 1px solid var(--_widget-atlas-border);
         border-radius: var(--_widget-atlas-radius-md);
-        background:
-          radial-gradient(circle at top right, rgb(var(--_widget-atlas-tint) / 0.08), transparent 35%),
-          var(--_widget-atlas-surface);
+        background: var(--_widget-atlas-card-bg);
         color: inherit;
         text-decoration: none;
         box-shadow: var(--_widget-atlas-shadow-sm);
@@ -76,11 +74,7 @@ WidgetCard.styles = [
         inset: 0 auto 0 0;
         width: 4px;
         border-radius: var(--_widget-atlas-radius-md) 0 0 var(--_widget-atlas-radius-md);
-        background: linear-gradient(
-          180deg,
-          var(--_widget-atlas-accent),
-          color-mix(in srgb, var(--_widget-atlas-accent) 40%, white)
-        );
+        background: var(--_widget-atlas-card-accent-bg);
         opacity: 0;
         transition: opacity 180ms ease;
       }
@@ -107,9 +101,9 @@ WidgetCard.styles = [
         flex-shrink: 0;
         padding: 0.22rem 0.5rem;
         border-radius: 999px;
-        background: var(--_widget-atlas-surface-muted);
-        border: 1px solid var(--_widget-atlas-border);
-        color: var(--_widget-atlas-text-soft);
+        background: var(--_widget-atlas-card-tag-bg);
+        border: 1px solid var(--_widget-atlas-card-tag-border);
+        color: var(--_widget-atlas-card-tag-text);
         font-family: var(
           --_widget-atlas-font-mono,
           'JetBrains Mono',

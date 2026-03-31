@@ -20,9 +20,7 @@ export class WidgetCataloguePage extends LitElement {
       :host {
         display: block;
         min-height: 100vh;
-        background:
-          radial-gradient(circle at top right, rgb(var(--_widget-atlas-tint) / 0.06), transparent 32%),
-          linear-gradient(180deg, var(--_widget-atlas-surface-muted), var(--_widget-atlas-surface-end) 18rem);
+        background: var(--_widget-atlas-page-bg);
       }
 
       .catalogue-container {
@@ -37,8 +35,8 @@ export class WidgetCataloguePage extends LitElement {
 
       .hero {
         display: grid;
-        grid-template-columns: minmax(0, 1.5fr) minmax(18rem, 1fr);
-        gap: var(--_widget-atlas-space-xl);
+        grid-template-columns: var(--_widget-atlas-hero-columns);
+        gap: var(--_widget-atlas-hero-gap);
         align-items: end;
         margin-bottom: var(--_widget-atlas-space-xl);
       }
@@ -59,42 +57,38 @@ export class WidgetCataloguePage extends LitElement {
 
       h1 {
         margin: var(--_widget-atlas-space-sm) 0 var(--_widget-atlas-space-sm);
-        font-family: var(
-          --_widget-atlas-font-display,
-          'Fraunces',
-          'DM Serif Display',
-          Georgia,
-          serif
-        );
-        font-size: clamp(2.2rem, 4vw, 3.4rem);
-        line-height: 0.98;
-        letter-spacing: -0.04em;
+        font-family: var(--_widget-atlas-title-font-family);
+        font-size: var(--_widget-atlas-title-size);
+        line-height: var(--_widget-atlas-title-line-height);
+        letter-spacing: var(--_widget-atlas-title-letter-spacing);
+        color: var(--_widget-atlas-title-color);
       }
 
       .subtitle {
         max-width: 38rem;
         margin: 0;
-        color: var(--_widget-atlas-text-muted);
-        font-size: 1.05rem;
+        color: var(--_widget-atlas-subtitle-color);
+        font-size: var(--_widget-atlas-subtitle-size);
       }
 
       .stats-grid {
         display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: var(--_widget-atlas-stats-grid-columns);
         gap: var(--_widget-atlas-space-sm);
       }
 
       .stat-card {
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: var(--_widget-atlas-space-md);
-        border-radius: var(--_widget-atlas-radius-md);
-        border: 1px solid var(--_widget-atlas-border);
-        background: var(--_widget-atlas-surface);
-        box-shadow: var(--_widget-atlas-shadow-sm);
-        text-align: center;
+        flex-direction: var(--_widget-atlas-stat-card-direction);
+        align-items: var(--_widget-atlas-stat-card-align);
+        justify-content: var(--_widget-atlas-stat-card-justify);
+        gap: var(--_widget-atlas-stat-card-gap);
+        padding: var(--_widget-atlas-stat-card-padding);
+        border-radius: var(--_widget-atlas-stat-card-radius);
+        border: 1px solid var(--_widget-atlas-stat-card-border);
+        background: var(--_widget-atlas-stat-card-bg);
+        box-shadow: var(--_widget-atlas-stat-card-shadow);
+        text-align: var(--_widget-atlas-stat-card-text-align);
       }
 
       .stat-label {

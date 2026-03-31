@@ -155,10 +155,8 @@ WidgetSearch.styles = [
         padding: var(--_widget-atlas-space-md);
         border: 1px solid var(--_widget-atlas-border);
         border-radius: var(--_widget-atlas-radius-md);
-        background:
-          radial-gradient(circle at top right, rgb(var(--_widget-atlas-tint) / 0.08), transparent 28%),
-          var(--_widget-atlas-surface);
-        box-shadow: var(--_widget-atlas-shadow-sm);
+        background: var(--_widget-atlas-search-toolbar-bg);
+        box-shadow: var(--_widget-atlas-search-toolbar-shadow);
       }
 
       .search-field {
@@ -167,7 +165,7 @@ WidgetSearch.styles = [
 
       .search-label,
       .filter-label {
-        display: block;
+        display: var(--_widget-atlas-search-label-display);
         margin-bottom: var(--_widget-atlas-space-2xs);
         color: var(--_widget-atlas-text-muted);
         font-size: 0.78rem;
