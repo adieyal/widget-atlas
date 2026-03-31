@@ -36,8 +36,7 @@ export class WidgetDemoPage extends LitElement {
         height: 100vh;
         padding: var(--_widget-atlas-space-2xl) 0;
         border-right: 1px solid var(--_widget-atlas-border);
-        background: rgb(255 255 255 / 0.74);
-        backdrop-filter: blur(14px);
+        background: var(--_widget-atlas-surface);
       }
 
       .sidebar__label {
