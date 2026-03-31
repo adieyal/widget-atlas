@@ -21,8 +21,8 @@ export class WidgetCataloguePage extends LitElement {
         display: block;
         min-height: 100vh;
         background:
-          radial-gradient(circle at top right, rgb(29 122 82 / 0.06), transparent 32%),
-          linear-gradient(180deg, var(--_widget-atlas-surface-muted), #f8fbf7 18rem);
+          radial-gradient(circle at top right, rgb(var(--_widget-atlas-tint) / 0.06), transparent 32%),
+          linear-gradient(180deg, var(--_widget-atlas-surface-muted), var(--_widget-atlas-surface-end) 18rem);
       }
 
       .catalogue-container {

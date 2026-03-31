@@ -346,8 +346,8 @@ WidgetDemoPage.styles = [
         grid-template-columns: 15rem minmax(0, 1fr);
         min-height: 100vh;
         background:
-          radial-gradient(circle at top right, rgb(29 122 82 / 0.07), transparent 30%),
-          linear-gradient(180deg, var(--_widget-atlas-surface-muted), #f7faf5 18rem);
+          radial-gradient(circle at top right, rgb(var(--_widget-atlas-tint) / 0.07), transparent 30%),
+          linear-gradient(180deg, var(--_widget-atlas-surface-muted), var(--_widget-atlas-surface-end) 18rem);
       }
 
       .sidebar {
@@ -390,7 +390,7 @@ WidgetDemoPage.styles = [
       }
 
       .sidebar__link:hover {
-        background: rgb(23 34 24 / 0.04);
+        background: rgb(var(--_widget-atlas-tint-dark) / 0.04);
         color: var(--_widget-atlas-text);
       }
 

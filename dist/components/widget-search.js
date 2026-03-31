@@ -156,7 +156,7 @@ WidgetSearch.styles = [
         border: 1px solid var(--_widget-atlas-border);
         border-radius: var(--_widget-atlas-radius-md);
         background:
-          radial-gradient(circle at top right, rgb(29 122 82 / 0.08), transparent 28%),
+          radial-gradient(circle at top right, rgb(var(--_widget-atlas-tint) / 0.08), transparent 28%),
           var(--_widget-atlas-surface);
         box-shadow: var(--_widget-atlas-shadow-sm);
       }
