@@ -1,6 +1,6 @@
 {
   "name": "widget-atlas",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Standalone widget metadata registry and Lit web components",
   "type": "module",
   "main": "./dist/index.js",
