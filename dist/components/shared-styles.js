@@ -68,6 +68,89 @@ export const widgetAtlasThemeStyles = css `
     --_widget-atlas-tint-dark: var(--widget-atlas-tint-dark, 23 34 24);
     --_widget-atlas-surface-end: var(--widget-atlas-surface-end, #f8fbf7);
     --_widget-atlas-layout-max: var(--widget-atlas-layout-max, 1200px);
+    --_widget-atlas-hero-columns: var(
+      --widget-atlas-hero-columns,
+      minmax(0, 1.5fr) minmax(18rem, 1fr)
+    );
+    --_widget-atlas-hero-gap: var(--widget-atlas-hero-gap, var(--_widget-atlas-space-xl));
+    --_widget-atlas-title-font-family: var(
+      --widget-atlas-title-font-family,
+      var(--_widget-atlas-font-display)
+    );
+    --_widget-atlas-title-size: var(--widget-atlas-title-size, clamp(2.2rem, 4vw, 3.4rem));
+    --_widget-atlas-title-line-height: var(--widget-atlas-title-line-height, 0.98);
+    --_widget-atlas-title-letter-spacing: var(--widget-atlas-title-letter-spacing, -0.04em);
+    --_widget-atlas-title-color: var(--widget-atlas-title-color, var(--_widget-atlas-text));
+    --_widget-atlas-subtitle-color: var(
+      --widget-atlas-subtitle-color,
+      var(--_widget-atlas-text-muted)
+    );
+    --_widget-atlas-subtitle-size: var(--widget-atlas-subtitle-size, 1.05rem);
+    --_widget-atlas-page-bg: var(
+      --widget-atlas-page-bg,
+      radial-gradient(circle at top right, rgb(var(--_widget-atlas-tint) / 0.06), transparent 32%),
+      linear-gradient(180deg, var(--_widget-atlas-surface-muted), var(--_widget-atlas-surface-end) 18rem)
+    );
+    --_widget-atlas-search-toolbar-bg: var(
+      --widget-atlas-search-toolbar-bg,
+      radial-gradient(circle at top right, rgb(var(--_widget-atlas-tint) / 0.08), transparent 28%),
+      var(--_widget-atlas-surface)
+    );
+    --_widget-atlas-search-toolbar-shadow: var(
+      --widget-atlas-search-toolbar-shadow,
+      var(--_widget-atlas-shadow-sm)
+    );
+    --_widget-atlas-search-label-display: var(--widget-atlas-search-label-display, block);
+    --_widget-atlas-stats-grid-columns: var(
+      --widget-atlas-stats-grid-columns,
+      repeat(4, minmax(0, 1fr))
+    );
+    --_widget-atlas-stat-card-direction: var(--widget-atlas-stat-card-direction, column);
+    --_widget-atlas-stat-card-align: var(--widget-atlas-stat-card-align, center);
+    --_widget-atlas-stat-card-justify: var(--widget-atlas-stat-card-justify, center);
+    --_widget-atlas-stat-card-gap: var(--widget-atlas-stat-card-gap, 0);
+    --_widget-atlas-stat-card-padding: var(--widget-atlas-stat-card-padding, var(--_widget-atlas-space-md));
+    --_widget-atlas-stat-card-radius: var(
+      --widget-atlas-stat-card-radius,
+      var(--_widget-atlas-radius-md)
+    );
+    --_widget-atlas-stat-card-text-align: var(--widget-atlas-stat-card-text-align, center);
+    --_widget-atlas-stat-card-bg: var(--widget-atlas-stat-card-bg, var(--_widget-atlas-surface));
+    --_widget-atlas-stat-card-border: var(--widget-atlas-stat-card-border, var(--_widget-atlas-border));
+    --_widget-atlas-stat-card-shadow: var(--widget-atlas-stat-card-shadow, var(--_widget-atlas-shadow-sm));
+    --_widget-atlas-card-bg: var(
+      --widget-atlas-card-bg,
+      radial-gradient(circle at top right, rgb(var(--_widget-atlas-tint) / 0.08), transparent 35%),
+      var(--_widget-atlas-surface)
+    );
+    --_widget-atlas-card-accent-bg: var(
+      --widget-atlas-card-accent-bg,
+      linear-gradient(
+        180deg,
+        var(--_widget-atlas-accent),
+        color-mix(in srgb, var(--_widget-atlas-accent) 40%, white)
+      )
+    );
+    --_widget-atlas-card-tag-bg: var(--widget-atlas-card-tag-bg, var(--_widget-atlas-surface-muted));
+    --_widget-atlas-card-tag-border: var(--widget-atlas-card-tag-border, var(--_widget-atlas-border));
+    --_widget-atlas-card-tag-text: var(--widget-atlas-card-tag-text, var(--_widget-atlas-text-soft));
+    --_widget-atlas-category-accent-bg: var(
+      --widget-atlas-category-accent-bg,
+      linear-gradient(
+        180deg,
+        var(--_widget-atlas-accent),
+        color-mix(in srgb, var(--_widget-atlas-accent) 36%, white)
+      )
+    );
+    --_widget-atlas-category-count-bg: var(--widget-atlas-category-count-bg, var(--_widget-atlas-surface));
+    --_widget-atlas-category-count-border: var(
+      --widget-atlas-category-count-border,
+      var(--_widget-atlas-border)
+    );
+    --_widget-atlas-category-count-text: var(
+      --widget-atlas-category-count-text,
+      var(--_widget-atlas-text-muted)
+    );
     color: var(--_widget-atlas-text);
     font-family: var(--_widget-atlas-font-body);
     line-height: 1.5;

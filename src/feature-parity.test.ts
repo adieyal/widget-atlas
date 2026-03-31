@@ -1,4 +1,8 @@
 import { catalogue } from './core/catalogue.js';
+import { WidgetCard } from './components/widget-card.js';
+import { WidgetCataloguePage } from './components/widget-catalogue-page.js';
+import { WidgetCategorySection } from './components/widget-category-section.js';
+import { WidgetSearch } from './components/widget-search.js';
 import { setWidgetUrlBuilder } from './core/url-strategy.js';
 import type { WidgetMetadata } from './core/types.js';
 import { widgetAtlasThemeStyles } from './components/shared-styles.js';
@@ -131,6 +135,36 @@ describe('widget-atlas parity surface', () => {
     expect(widgetAtlasThemeStyles.cssText).not.toContain(
       '--widget-atlas-surface: var(--widget-atlas-surface, #ffffff);'
     );
+  });
+
+  test('catalogue primitives expose theme hooks for page, search, section, and card chrome', () => {
+    expect(widgetAtlasThemeStyles.cssText).toContain('--_widget-atlas-page-bg: var(');
+    expect(widgetAtlasThemeStyles.cssText).toContain('--widget-atlas-page-bg,');
+    expect(widgetAtlasThemeStyles.cssText).toContain('--_widget-atlas-search-toolbar-bg: var(');
+    expect(widgetAtlasThemeStyles.cssText).toContain('--widget-atlas-search-toolbar-bg,');
+    expect(widgetAtlasThemeStyles.cssText).toContain('--_widget-atlas-title-font-family: var(');
+    expect(widgetAtlasThemeStyles.cssText).toContain('--widget-atlas-title-font-family,');
+    expect(widgetAtlasThemeStyles.cssText).toContain('--_widget-atlas-stat-card-direction: var(');
+    expect(widgetAtlasThemeStyles.cssText).toContain('--widget-atlas-stat-card-direction,');
+    expect(widgetAtlasThemeStyles.cssText).toContain('--_widget-atlas-card-bg: var(');
+    expect(widgetAtlasThemeStyles.cssText).toContain('--widget-atlas-card-bg,');
+    expect(widgetAtlasThemeStyles.cssText).toContain('--_widget-atlas-category-accent-bg: var(');
+    expect(widgetAtlasThemeStyles.cssText).toContain('--widget-atlas-category-accent-bg,');
+
+    const catalogueCss = WidgetCataloguePage.styles.map((style) => style.cssText).join('\n');
+    const searchCss = WidgetSearch.styles.map((style) => style.cssText).join('\n');
+    const categoryCss = WidgetCategorySection.styles.map((style) => style.cssText).join('\n');
+    const cardCss = WidgetCard.styles.map((style) => style.cssText).join('\n');
+
+    expect(catalogueCss).toContain('background: var(--_widget-atlas-page-bg);');
+    expect(catalogueCss).toContain('grid-template-columns: var(--_widget-atlas-stats-grid-columns);');
+    expect(catalogueCss).toContain('font-family: var(--_widget-atlas-title-font-family);');
+    expect(catalogueCss).toContain('flex-direction: var(--_widget-atlas-stat-card-direction);');
+    expect(searchCss).toContain('background: var(--_widget-atlas-search-toolbar-bg);');
+    expect(searchCss).toContain('display: var(--_widget-atlas-search-label-display);');
+    expect(categoryCss).toContain('background: var(--_widget-atlas-category-accent-bg);');
+    expect(cardCss).toContain('background: var(--_widget-atlas-card-bg);');
+    expect(cardCss).toContain('background: var(--_widget-atlas-card-accent-bg);');
   });
 
   test('widget-catalogue-page renders stat summary cards for total, stable, beta, and new widgets', async () => {
