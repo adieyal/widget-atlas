@@ -222,7 +222,7 @@ export class WidgetCataloguePage extends LitElement {
       <widget-card
         .name=${widget.name}
         .tag=${widget.tag}
-        .description=${widget.description}
+        .description=${widget.shortDescription ?? widget.description}
         .status=${widget.status}
         .level=${widget.level}
         .href=${buildWidgetUrl({ category: widget.category, tag: widget.tag })}

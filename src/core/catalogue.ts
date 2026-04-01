@@ -58,6 +58,7 @@ export class WidgetCatalogue {
         if (widget.name.toLowerCase().includes(normalizedQuery)) return true;
         if (widget.tag.toLowerCase().includes(normalizedQuery)) return true;
         if (widget.description.toLowerCase().includes(normalizedQuery)) return true;
+        if (widget.shortDescription?.toLowerCase().includes(normalizedQuery)) return true;
         if (widget.keywords?.some((keyword) => keyword.toLowerCase().includes(normalizedQuery))) {
           return true;
         }

@@ -88,6 +88,35 @@ describe('widget-atlas web components', () => {
     expect(link?.getAttribute('href')).toBe('/custom/atoms/rs-button/');
   });
 
+  test('catalogue cards prefer shortDescription when provided', async () => {
+    catalogue.register(
+      makeMeta({
+        shortDescription: 'Short catalogue summary',
+        description: 'Longer component description for detail pages',
+      })
+    );
+
+    const el = document.createElement('widget-catalogue-page') as HTMLElement & {
+      updateComplete?: Promise<unknown>;
+      shadowRoot: ShadowRoot;
+    };
+    document.body.appendChild(el);
+    await el.updateComplete;
+
+    const categorySection = el.shadowRoot.querySelector('widget-category-section') as
+      | (HTMLElement & { shadowRoot: ShadowRoot; updateComplete?: Promise<unknown> })
+      | null;
+    await categorySection?.updateComplete;
+
+    const card = categorySection?.shadowRoot.querySelector('widget-card') as
+      | (HTMLElement & { shadowRoot: ShadowRoot; updateComplete?: Promise<unknown> })
+      | null;
+    await card?.updateComplete;
+
+    const description = card?.shadowRoot.querySelector('.description')?.textContent?.trim();
+    expect(description).toBe('Short catalogue summary');
+  });
+
   test('demo page uses custom URL builder for related links', async () => {
     setWidgetUrlBuilder((widget) => `/custom/${widget.category}/${widget.tag}/`);
 

@@ -130,6 +130,20 @@ describe('widget-atlas parity surface', () => {
     expect(detail.results.map((widget) => widget.tag)).toEqual(['rs-table']);
   });
 
+  test('catalogue search matches shortDescription text', () => {
+    catalogue.register(
+      makeMeta({
+        tag: 'rs-inline-cta',
+        name: 'RS Inline CTA',
+        description: 'Long detail description',
+        shortDescription: 'Promo call to action card',
+      })
+    );
+
+    const results = catalogue.search('promo call');
+    expect(results.map((widget) => widget.tag)).toEqual(['rs-inline-cta']);
+  });
+
   test('shared theme styles resolve public tokens through internal defaults', () => {
     expect(widgetAtlasThemeStyles.cssText).toContain('--_widget-atlas-surface: var(--widget-atlas-surface, #ffffff);');
     expect(widgetAtlasThemeStyles.cssText).not.toContain(

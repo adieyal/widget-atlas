@@ -35,7 +35,7 @@ let WidgetCategorySection = class WidgetCategorySection extends LitElement {
               <widget-card
                 .name=${widget.name}
                 .tag=${widget.tag}
-                .description=${widget.description}
+                .description=${widget.shortDescription ?? widget.description}
                 .status=${widget.status}
                 .level=${widget.level}
                 .href=${this.getWidgetUrl(widget)}
