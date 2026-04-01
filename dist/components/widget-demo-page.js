@@ -83,9 +83,8 @@ let WidgetDemoPage = class WidgetDemoPage extends LitElement {
             return html `
         <widget-preview
           class="example-preview"
-          ?full-width=${Boolean(example.fullWidth)}
           ?show-device-selector=${true}
-          ?show-width-control=${!example.fullWidth}
+          ?show-width-control=${true}
           use-slot
         >
           <div ${ref((container) => this.mountPropPreview(container, this.meta.tag, example.props))}></div>
@@ -96,9 +95,8 @@ let WidgetDemoPage = class WidgetDemoPage extends LitElement {
       <widget-preview
         class="example-preview"
         .code=${example.code}
-        ?full-width=${Boolean(example.fullWidth)}
         ?show-device-selector=${true}
-        ?show-width-control=${!example.fullWidth}
+        ?show-width-control=${true}
       ></widget-preview>
     `;
     }

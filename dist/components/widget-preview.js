@@ -91,11 +91,11 @@ let WidgetPreview = class WidgetPreview extends LitElement {
     }
     render() {
         const frameStyles = styleMap({
-            '--widget-atlas-preview-width': this.fullWidth ? '100%' : `${this.previewWidth}px`,
+            '--widget-atlas-preview-width': `${this.previewWidth}px`,
         });
         return html `
       <div class="preview-shell">
-        ${(this.showDeviceSelector || (this.showWidthControl && !this.fullWidth))
+        ${(this.showDeviceSelector || this.showWidthControl)
             ? html `
               <div class="preview-toolbar">
                 ${this.showDeviceSelector
@@ -119,7 +119,7 @@ let WidgetPreview = class WidgetPreview extends LitElement {
                     `
                 : nothing}
 
-                ${this.showWidthControl && !this.fullWidth
+                ${this.showWidthControl
                 ? html `
                       <div class="range-row">
                         <span class="toolbar-label">Container</span>
@@ -143,7 +143,7 @@ let WidgetPreview = class WidgetPreview extends LitElement {
 
         <div class="preview-canvas">
           <div
-            class="preview-frame ${this.fullWidth ? 'is-full-width' : ''}"
+            class="preview-frame"
             data-device=${this.device}
             style=${frameStyles}
           >
@@ -264,21 +264,8 @@ WidgetPreview.styles = [
         border-radius: var(--_widget-atlas-radius-sm);
         border: 1px dashed var(--_widget-atlas-border-strong);
         background: var(--_widget-atlas-surface);
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: var(--_widget-atlas-space-sm);
         box-sizing: border-box;
         transition: width 180ms ease;
-      }
-
-      .preview-frame.is-full-width {
-        width: 100%;
-      }
-
-      .preview-frame.is-full-width > * {
-        width: 100%;
       }
 
       @media (max-width: 820px) {
