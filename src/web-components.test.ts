@@ -10,7 +10,7 @@ function makeMeta(overrides: Partial<WidgetMetadata> = {}): WidgetMetadata {
     name: 'RS Button',
     description: 'Button component',
     category: 'atoms',
-    useCase: 'buttons',
+    useCase: 'buttons-links',
     level: 'atom',
     status: 'stable',
     properties: [],
@@ -134,7 +134,7 @@ describe('widget-atlas web components', () => {
         name: 'RS Form',
         description: 'Form',
         category: 'organisms',
-        useCase: 'forms',
+        useCase: 'inputs-selection',
         level: 'organism',
         relatedComponents: ['rs-input'],
       })

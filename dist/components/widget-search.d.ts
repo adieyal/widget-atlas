@@ -25,6 +25,7 @@ export declare class WidgetSearch extends LitElement {
     private onUseCaseChange;
     private onCategoryChange;
     private onStatusChange;
+    private get availableUseCases();
     render(): import("lit-html").TemplateResult<1>;
 }
 declare global {

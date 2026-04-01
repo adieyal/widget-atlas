@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { LitElement, css, html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { catalogue } from '../core/catalogue.js';
-import { CATEGORY_LABELS, CATEGORY_ORDER, STATUS_LABELS, STATUS_ORDER, USE_CASE_LABELS, USE_CASE_ORDER, } from './catalogue-constants.js';
+import { CATEGORY_LABELS, CATEGORY_ORDER, STATUS_LABELS, STATUS_ORDER, formatUseCaseLabel, } from './catalogue-constants.js';
 import { widgetAtlasControlStyles, widgetAtlasThemeStyles } from './shared-styles.js';
 let WidgetSearch = class WidgetSearch extends LitElement {
     constructor() {
@@ -72,6 +72,9 @@ let WidgetSearch = class WidgetSearch extends LitElement {
         this.status = (event.target.value || '');
         this.performSearch();
     }
+    get availableUseCases() {
+        return catalogue.getUseCases();
+    }
     render() {
         return html `
       <div class="toolbar">
@@ -97,7 +100,7 @@ let WidgetSearch = class WidgetSearch extends LitElement {
                     @change=${this.onUseCaseChange}
                   >
                     <option value="">All use cases</option>
-                    ${USE_CASE_ORDER.map((useCase) => html `<option value=${useCase}>${USE_CASE_LABELS[useCase]}</option>`)}
+                    ${this.availableUseCases.map((useCase) => html `<option value=${useCase}>${formatUseCaseLabel(useCase)}</option>`)}
                   </select>
                 </label>
               `

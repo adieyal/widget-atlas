@@ -50,7 +50,7 @@ export interface UsageGuideline {
     dont: string[];
     notes?: string[];
 }
-export type UseCase = 'design-system' | 'buttons' | 'cards' | 'forms' | 'feedback' | 'navigation' | 'data-display' | 'charts' | 'layout' | 'modals' | 'onboarding' | 'icons' | 'integrations';
+export type UseCase = string;
 export type Category = 'atoms' | 'molecules' | 'organisms' | 'charts' | 'features';
 export type Level = 'atom' | 'molecule' | 'organism' | 'foundation';
 export type Status = 'new' | 'alpha' | 'beta' | 'stable' | 'deprecated' | 'legacy';

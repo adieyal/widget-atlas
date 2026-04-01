@@ -3,7 +3,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { catalogue } from '../core/catalogue.js';
 import { buildWidgetUrl } from '../core/url-strategy.js';
 import type { WidgetMetadata } from '../core/types.js';
-import { USE_CASE_LABELS, USE_CASE_ORDER } from './catalogue-constants.js';
+import { formatUseCaseLabel } from './catalogue-constants.js';
 import { widgetAtlasControlStyles, widgetAtlasThemeStyles } from './shared-styles.js';
 import type { WidgetSearchResultsDetail } from './widget-search.js';
 
@@ -191,6 +191,10 @@ export class WidgetCataloguePage extends LitElement {
     return catalogue.getGroupedByUseCase();
   }
 
+  private get availableUseCases() {
+    return catalogue.getUseCases();
+  }
+
   private handleSearch(event: CustomEvent<WidgetSearchResultsDetail>): void {
     this.searchQuery = event.detail.query;
     this.searchResults = event.detail.results;
@@ -277,13 +281,13 @@ export class WidgetCataloguePage extends LitElement {
 
   private renderCategories() {
     return html`
-      ${USE_CASE_ORDER.map((useCase) => {
+      ${this.availableUseCases.map((useCase) => {
         const widgets = this.groupedWidgets.get(useCase);
         if (!widgets?.length) return nothing;
 
         return html`
           <widget-category-section
-            heading=${USE_CASE_LABELS[useCase]}
+            heading=${formatUseCaseLabel(useCase)}
             .widgets=${widgets}
             .getWidgetUrl=${(widget: WidgetMetadata) =>
               buildWidgetUrl({ category: widget.category, tag: widget.tag })}

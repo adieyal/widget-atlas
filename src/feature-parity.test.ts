@@ -15,7 +15,7 @@ function makeMeta(overrides: Partial<WidgetMetadata> = {}): WidgetMetadata {
     name: 'RS Button',
     description: 'Button component',
     category: 'atoms',
-    useCase: 'buttons',
+    useCase: 'buttons-links',
     level: 'atom',
     status: 'stable',
     version: '1.2.3',
@@ -85,7 +85,7 @@ describe('widget-atlas parity surface', () => {
         name: 'RS Table',
         description: 'Table component',
         category: 'organisms',
-        useCase: 'data-display',
+        useCase: 'tables-lists',
         level: 'organism',
         status: 'beta',
       })
@@ -122,11 +122,11 @@ describe('widget-atlas parity surface', () => {
         { once: true }
       );
 
-      useCaseSelect!.value = 'data-display';
+      useCaseSelect!.value = 'tables-lists';
       useCaseSelect!.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
     });
 
-    expect(detail.filters.useCase).toBe('data-display');
+    expect(detail.filters.useCase).toBe('tables-lists');
     expect(detail.results.map((widget) => widget.tag)).toEqual(['rs-table']);
   });
 
@@ -189,7 +189,7 @@ describe('widget-atlas parity surface', () => {
         name: 'RS Table',
         description: 'Table component',
         category: 'organisms',
-        useCase: 'data-display',
+        useCase: 'tables-lists',
         level: 'organism',
         status: 'beta',
       })
@@ -200,7 +200,7 @@ describe('widget-atlas parity surface', () => {
         name: 'RS Banner',
         description: 'Banner component',
         category: 'molecules',
-        useCase: 'feedback',
+        useCase: 'feedback-status',
         level: 'molecule',
         status: 'new',
       })
