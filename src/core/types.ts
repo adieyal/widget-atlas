@@ -83,6 +83,7 @@ export interface WidgetMetadata {
   tag: string;
   name: string;
   description: string;
+  shortDescription?: string;
   category: Category;
   useCase: UseCase;
   level: Level;
