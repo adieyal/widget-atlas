@@ -9,6 +9,7 @@ export declare class WidgetCataloguePage extends LitElement {
     private isSearching;
     private get stats();
     private get groupedWidgets();
+    private get availableUseCases();
     private handleSearch;
     private clearSearch;
     private renderCard;

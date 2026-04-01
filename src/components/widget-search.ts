@@ -7,8 +7,7 @@ import {
   CATEGORY_ORDER,
   STATUS_LABELS,
   STATUS_ORDER,
-  USE_CASE_LABELS,
-  USE_CASE_ORDER,
+  formatUseCaseLabel,
 } from './catalogue-constants.js';
 import { widgetAtlasControlStyles, widgetAtlasThemeStyles } from './shared-styles.js';
 
@@ -150,6 +149,10 @@ export class WidgetSearch extends LitElement {
     this.performSearch();
   }
 
+  private get availableUseCases(): UseCase[] {
+    return catalogue.getUseCases();
+  }
+
   render() {
     return html`
       <div class="toolbar">
@@ -175,9 +178,9 @@ export class WidgetSearch extends LitElement {
                     @change=${this.onUseCaseChange}
                   >
                     <option value="">All use cases</option>
-                    ${USE_CASE_ORDER.map(
+                    ${this.availableUseCases.map(
                       (useCase) =>
-                        html`<option value=${useCase}>${USE_CASE_LABELS[useCase]}</option>`
+                        html`<option value=${useCase}>${formatUseCaseLabel(useCase)}</option>`
                     )}
                   </select>
                 </label>

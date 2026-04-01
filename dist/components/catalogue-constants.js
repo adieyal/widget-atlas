@@ -1,33 +1,3 @@
-export const USE_CASE_LABELS = {
-    'design-system': 'Design System',
-    buttons: 'Buttons & Links',
-    cards: 'Cards',
-    forms: 'Forms & Input',
-    feedback: 'Feedback & Status',
-    navigation: 'Navigation & Progress',
-    'data-display': 'Data Display',
-    charts: 'Charts & Visualizations',
-    layout: 'Layout',
-    modals: 'Modals & Dialogs',
-    onboarding: 'Onboarding',
-    icons: 'Icons',
-    integrations: 'Integrations',
-};
-export const USE_CASE_ORDER = [
-    'design-system',
-    'buttons',
-    'cards',
-    'forms',
-    'feedback',
-    'navigation',
-    'data-display',
-    'charts',
-    'layout',
-    'modals',
-    'onboarding',
-    'icons',
-    'integrations',
-];
 export const CATEGORY_LABELS = {
     atoms: 'Atoms',
     molecules: 'Molecules',
@@ -50,6 +20,13 @@ export function titleCase(value) {
         .split(/[-\s]+/)
         .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
         .join(' ');
+}
+export function formatUseCaseLabel(useCase) {
+    const parts = useCase.split('-').filter(Boolean);
+    if (parts.length === 2) {
+        return `${titleCase(parts[0])} & ${titleCase(parts[1])}`;
+    }
+    return titleCase(useCase);
 }
 export function statusTone(status) {
     switch (status) {

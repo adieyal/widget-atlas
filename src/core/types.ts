@@ -58,20 +58,7 @@ export interface UsageGuideline {
   notes?: string[];
 }
 
-export type UseCase =
-  | 'design-system'
-  | 'buttons'
-  | 'cards'
-  | 'forms'
-  | 'feedback'
-  | 'navigation'
-  | 'data-display'
-  | 'charts'
-  | 'layout'
-  | 'modals'
-  | 'onboarding'
-  | 'icons'
-  | 'integrations';
+export type UseCase = string;
 
 export type Category = 'atoms' | 'molecules' | 'organisms' | 'charts' | 'features';
 

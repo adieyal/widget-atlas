@@ -8,7 +8,7 @@ import { LitElement, css, html, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { catalogue } from '../core/catalogue.js';
 import { buildWidgetUrl } from '../core/url-strategy.js';
-import { USE_CASE_LABELS, USE_CASE_ORDER } from './catalogue-constants.js';
+import { formatUseCaseLabel } from './catalogue-constants.js';
 import { widgetAtlasControlStyles, widgetAtlasThemeStyles } from './shared-styles.js';
 import './widget-card.js';
 import './widget-category-section.js';
@@ -25,6 +25,9 @@ let WidgetCataloguePage = class WidgetCataloguePage extends LitElement {
     }
     get groupedWidgets() {
         return catalogue.getGroupedByUseCase();
+    }
+    get availableUseCases() {
+        return catalogue.getUseCases();
     }
     handleSearch(event) {
         this.searchQuery = event.detail.query;
@@ -102,13 +105,13 @@ let WidgetCataloguePage = class WidgetCataloguePage extends LitElement {
     }
     renderCategories() {
         return html `
-      ${USE_CASE_ORDER.map((useCase) => {
+      ${this.availableUseCases.map((useCase) => {
             const widgets = this.groupedWidgets.get(useCase);
             if (!widgets?.length)
                 return nothing;
             return html `
           <widget-category-section
-            heading=${USE_CASE_LABELS[useCase]}
+            heading=${formatUseCaseLabel(useCase)}
             .widgets=${widgets}
             .getWidgetUrl=${(widget) => buildWidgetUrl({ category: widget.category, tag: widget.tag })}
           ></widget-category-section>
