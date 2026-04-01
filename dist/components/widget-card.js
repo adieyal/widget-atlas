@@ -15,6 +15,54 @@ let WidgetCard = class WidgetCard extends LitElement {
         this.tag = '';
         this.description = '';
         this.href = '';
+        this.handleWindowResize = () => {
+            this.updateHeaderWrapState();
+        };
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        window.addEventListener('resize', this.handleWindowResize);
+    }
+    disconnectedCallback() {
+        this.resizeObserver?.disconnect();
+        this.resizeObserver = undefined;
+        window.removeEventListener('resize', this.handleWindowResize);
+        super.disconnectedCallback();
+    }
+    firstUpdated() {
+        this.setupHeaderWrapObserver();
+        this.updateHeaderWrapState();
+    }
+    updated() {
+        this.updateHeaderWrapState();
+    }
+    setupHeaderWrapObserver() {
+        if (typeof ResizeObserver === 'undefined') {
+            return;
+        }
+        this.resizeObserver?.disconnect();
+        const header = this.shadowRoot?.querySelector('.header');
+        const name = this.shadowRoot?.querySelector('.name');
+        const tag = this.shadowRoot?.querySelector('.tag');
+        if (!header || !name || !tag) {
+            return;
+        }
+        this.resizeObserver = new ResizeObserver(() => {
+            this.updateHeaderWrapState();
+        });
+        this.resizeObserver.observe(header);
+        this.resizeObserver.observe(name);
+        this.resizeObserver.observe(tag);
+    }
+    updateHeaderWrapState() {
+        const header = this.shadowRoot?.querySelector('.header');
+        const name = this.shadowRoot?.querySelector('.name');
+        const tag = this.shadowRoot?.querySelector('.tag');
+        if (!header || !name || !tag) {
+            return;
+        }
+        const isWrapped = Math.abs(tag.getBoundingClientRect().top - name.getBoundingClientRect().top) > 1;
+        header.toggleAttribute('data-wrapped', isWrapped);
     }
     render() {
         return html `
@@ -85,20 +133,23 @@ WidgetCard.styles = [
 
       .header {
         display: flex;
-        justify-content: space-between;
+        flex-wrap: wrap;
         gap: var(--_widget-atlas-space-sm);
         align-items: flex-start;
         margin-bottom: var(--_widget-atlas-space-sm);
       }
 
       .name {
+        flex: 1 1 auto;
+        min-width: 0;
         font-weight: 700;
         font-size: 1rem;
         color: var(--_widget-atlas-text);
       }
 
       .tag {
-        flex-shrink: 0;
+        flex: 0 0 auto;
+        margin-inline-start: auto;
         padding: 0.22rem 0.5rem;
         border-radius: 999px;
         background: var(--_widget-atlas-card-tag-bg);
@@ -112,6 +163,11 @@ WidgetCard.styles = [
           monospace
         );
         font-size: 0.73rem;
+      }
+
+      .header[data-wrapped] .tag {
+        flex-basis: 100%;
+        margin-inline-start: 0;
       }
 
       .description {

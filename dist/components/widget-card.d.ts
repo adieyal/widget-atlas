@@ -8,6 +8,14 @@ export declare class WidgetCard extends LitElement {
     href: string;
     status?: Status;
     level?: Level;
+    private resizeObserver?;
+    private readonly handleWindowResize;
+    connectedCallback(): void;
+    disconnectedCallback(): void;
+    firstUpdated(): void;
+    updated(): void;
+    private setupHeaderWrapObserver;
+    private updateHeaderWrapState;
     render(): import("lit-html").TemplateResult<1>;
 }
 declare global {
