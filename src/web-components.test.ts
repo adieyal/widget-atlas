@@ -117,6 +117,42 @@ describe('widget-atlas web components', () => {
     expect(description).toBe('Short catalogue summary');
   });
 
+  test('widget cards mark wrapped tags so wrapped tags can left-align', async () => {
+    const card = document.createElement('widget-card') as HTMLElement & {
+      name: string;
+      tag: string;
+      href: string;
+      updateComplete?: Promise<unknown>;
+      shadowRoot: ShadowRoot;
+      updateHeaderWrapState?: () => void;
+    };
+
+    card.name = 'RS Sort Button Group';
+    card.tag = 'rs-sort-button-group';
+    card.href = '#/rs-sort-button-group';
+    document.body.appendChild(card);
+    await card.updateComplete;
+
+    const name = card.shadowRoot.querySelector('.name') as HTMLElement | null;
+    const tag = card.shadowRoot.querySelector('.tag') as HTMLElement | null;
+    const header = card.shadowRoot.querySelector('.header');
+
+    expect(header?.hasAttribute('data-wrapped')).toBe(false);
+
+    Object.defineProperty(name, 'getBoundingClientRect', {
+      configurable: true,
+      value: () => ({ top: 0 }),
+    });
+    Object.defineProperty(tag, 'getBoundingClientRect', {
+      configurable: true,
+      value: () => ({ top: 24 }),
+    });
+
+    card.updateHeaderWrapState?.();
+
+    expect(header?.hasAttribute('data-wrapped')).toBe(true);
+  });
+
   test('demo page uses custom URL builder for related links', async () => {
     setWidgetUrlBuilder((widget) => `/custom/${widget.category}/${widget.tag}/`);
 
