@@ -87,8 +87,52 @@ export interface WidgetMetadata {
   relatedComponents?: string[];
   keywords?: string[];
   aliases?: string[];
+  memberOf?: Record<string, string[]>;
   demoComponent?: string;
   demoImport?: string;
+}
+
+export interface WidgetListingItem {
+  tag: string;
+  name: string;
+  description: string;
+  shortDescription?: string;
+  href?: string;
+  status?: Status;
+  level?: Level;
+  category?: Category;
+  useCase?: UseCase;
+  tagLabel?: string;
+  tagLabelMode?: 'element' | 'plain';
+  metaLabel?: string;
+}
+
+export interface TagDef {
+  id: string;
+  name: string;
+  /** Short plain-text summary used in list/card views. Falls back to description if absent. */
+  shortDescription?: string;
+  /** Full description. May contain HTML for rich formatting (paragraphs, lists, code). Plain text also accepted. */
+  description?: string;
+  // Reserved for future semantic extension (e.g. required API surface for a contract)
+  apiSurface?: {
+    properties?: PropertyDef[];
+    events?: EventDef[];
+  };
+}
+
+export interface TagGroupDef {
+  id: string;
+  name: string;
+  description?: string;
+  tags: TagDef[];
+}
+
+export interface WidgetListingSection {
+  id: string;
+  heading: string;
+  description?: string;
+  widgets: WidgetListingItem[];
 }
 
 export interface SearchOptions {
@@ -96,6 +140,9 @@ export interface SearchOptions {
   category?: Category;
   status?: Status;
   level?: Level;
+  tagGroup?: string;
+  /** Requires tagGroup to be set — ambiguous otherwise */
+  tag?: string;
 }
 
 export interface CatalogueStats {

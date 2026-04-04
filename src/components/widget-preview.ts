@@ -4,14 +4,14 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { widgetAtlasControlStyles, widgetAtlasThemeStyles } from './shared-styles.js';
 
-type DeviceType = 'mobile' | 'mobile-lg' | 'tablet' | 'laptop' | 'desktop';
+type DeviceType = 'mobile' | 'mobile-lg' | 'tablet' | 'laptop' | 'fullscreen';
 
 const DEVICE_PRESETS: Array<{ id: DeviceType; label: string; width: number | null }> = [
   { id: 'mobile', label: 'Mobile', width: 375 },
   { id: 'mobile-lg', label: 'Mobile L', width: 428 },
   { id: 'tablet', label: 'Tablet', width: 768 },
   { id: 'laptop', label: 'Laptop', width: 1024 },
-  { id: 'desktop', label: 'Desktop', width: null },
+  { id: 'fullscreen', label: 'Full Width', width: null },
 ];
 
 @customElement('widget-preview')
@@ -152,7 +152,7 @@ export class WidgetPreview extends LitElement {
   @property({ type: Number, attribute: 'max-width' }) maxWidth = 1280;
   @property({ type: Boolean, attribute: 'use-slot' }) useSlot = false;
 
-  @state() private device: DeviceType = 'desktop';
+  @state() private device: DeviceType = 'fullscreen';
   @state() private previewWidth = 960;
 
   @query('.preview-frame') private previewFrame?: HTMLDivElement;
@@ -203,14 +203,22 @@ export class WidgetPreview extends LitElement {
     const preset = DEVICE_PRESETS.find((item) => item.id === device);
     if (preset?.width) {
       this.previewWidth = preset.width;
-    } else if (device === 'desktop') {
-      this.previewWidth = this.initialWidth;
+    } else if (device === 'fullscreen') {
+      this.previewWidth = this.maxWidth;
     }
     this.requestUpdate();
   }
 
   private onWidthInput(event: Event): void {
     this.previewWidth = Number((event.target as HTMLInputElement).value);
+    // Sync active preset highlight; if no preset matches, pick the nearest named device
+    const matched = DEVICE_PRESETS.find((p) => p.width === this.previewWidth);
+    if (matched) {
+      this.device = matched.id;
+    } else if (this.device === 'fullscreen') {
+      // Dragging the slider exits fullscreen so the pixel width takes effect
+      this.device = 'laptop';
+    }
     this.requestUpdate();
   }
 
@@ -225,8 +233,9 @@ export class WidgetPreview extends LitElement {
   }
 
   render() {
+    const isFullWidth = this.device === 'fullscreen';
     const frameStyles = styleMap({
-      '--widget-atlas-preview-width': `${this.previewWidth}px`,
+      '--widget-atlas-preview-width': isFullWidth ? '100%' : `${this.previewWidth}px`,
     });
 
     return html`

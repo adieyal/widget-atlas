@@ -75,6 +75,11 @@ export class WidgetCatalogue {
         if (options.category && widget.category !== options.category) return false;
         if (options.status && widget.status !== options.status) return false;
         if (options.level && widget.level !== options.level) return false;
+        if (options.tagGroup) {
+          const groupTags = widget.memberOf?.[options.tagGroup];
+          if (!groupTags?.length) return false;
+          if (options.tag && !groupTags.includes(options.tag)) return false;
+        }
         return true;
       });
     }
@@ -99,6 +104,10 @@ export class WidgetCatalogue {
       byUseCase: this.countBy(all, 'useCase'),
       byLevel: this.countBy(all, 'level'),
     };
+  }
+
+  getByTag(groupId: string, tagId: string): WidgetMetadata[] {
+    return this.getAll().filter((widget) => widget.memberOf?.[groupId]?.includes(tagId));
   }
 
   getUseCases(): UseCase[] {

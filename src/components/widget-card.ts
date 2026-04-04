@@ -2,55 +2,16 @@ import { LitElement, css, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import type { Level, Status } from '../core/types.js';
 import { statusTone, titleCase } from './catalogue-constants.js';
-import { widgetAtlasThemeStyles } from './shared-styles.js';
+import { widgetAtlasCardStyles, widgetAtlasThemeStyles } from './shared-styles.js';
 
 @customElement('widget-card')
 export class WidgetCard extends LitElement {
   static styles = [
     widgetAtlasThemeStyles,
+    widgetAtlasCardStyles,
     css`
       :host {
         display: block;
-      }
-
-      .card {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        box-sizing: border-box;
-        padding: var(--_widget-atlas-space-lg);
-        border: 1px solid var(--_widget-atlas-border);
-        border-radius: var(--_widget-atlas-radius-md);
-        background: var(--_widget-atlas-card-bg);
-        color: inherit;
-        text-decoration: none;
-        box-shadow: var(--_widget-atlas-shadow-sm);
-        transition:
-          transform 180ms ease,
-          border-color 180ms ease,
-          box-shadow 180ms ease;
-      }
-
-      .card:hover {
-        transform: translateY(-2px);
-        border-color: var(--_widget-atlas-border-strong);
-        box-shadow: var(--_widget-atlas-shadow-md);
-      }
-
-      .card::before {
-        content: '';
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 4px;
-        border-radius: var(--_widget-atlas-radius-md) 0 0 var(--_widget-atlas-radius-md);
-        background: var(--_widget-atlas-card-accent-bg);
-        opacity: 0;
-        transition: opacity 180ms ease;
-      }
-
-      .card:hover::before {
-        opacity: 1;
       }
 
       .header {
@@ -138,6 +99,16 @@ export class WidgetCard extends LitElement {
         display: none;
       }
 
+      .chip--meta {
+        color: var(--_widget-atlas-text-muted);
+        background: var(--_widget-atlas-surface-muted);
+        border-color: var(--_widget-atlas-border);
+      }
+
+      .chip--meta::before {
+        display: none;
+      }
+
       .chip--success {
         color: var(--_widget-atlas-success);
         background: var(--_widget-atlas-success-soft);
@@ -176,6 +147,9 @@ export class WidgetCard extends LitElement {
   @property() href = '';
   @property() status?: Status;
   @property() level?: Level;
+  @property() tagLabel = '';
+  @property() tagLabelMode: 'element' | 'plain' = 'element';
+  @property() metaLabel = '';
 
   private resizeObserver?: ResizeObserver;
 
@@ -244,11 +218,15 @@ export class WidgetCard extends LitElement {
   }
 
   render() {
+    const rawTagLabel = this.tagLabel || this.tag;
+    const renderedTagLabel =
+      this.tagLabelMode === 'plain' ? rawTagLabel : `<${rawTagLabel}>`;
+
     return html`
       <a class="card" href=${this.href}>
         <div class="header">
           <span class="name">${this.name}</span>
-          <span class="tag">&lt;${this.tag}&gt;</span>
+          <span class="tag">${renderedTagLabel}</span>
         </div>
         <p class="description">${this.description}</p>
         <div class="meta">
@@ -257,6 +235,9 @@ export class WidgetCard extends LitElement {
             : nothing}
           ${this.level
             ? html`<span class="chip chip--level">${titleCase(this.level)}</span>`
+            : nothing}
+          ${this.metaLabel
+            ? html`<span class="chip chip--meta">${this.metaLabel}</span>`
             : nothing}
         </div>
       </a>

@@ -1,6 +1,6 @@
 import { LitElement, css, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import type { WidgetMetadata } from '../core/types.js';
+import type { WidgetListingItem } from '../core/types.js';
 import { widgetAtlasThemeStyles } from './shared-styles.js';
 
 import './widget-card.js';
@@ -73,9 +73,9 @@ export class WidgetCategorySection extends LitElement {
 
   @property() heading = '';
   @property() description = '';
-  @property({ attribute: false }) widgets: WidgetMetadata[] = [];
-  @property({ attribute: false }) getWidgetUrl: (widget: WidgetMetadata) => string =
-    (widget) => `#/${widget.tag}`;
+  @property({ attribute: false }) widgets: WidgetListingItem[] = [];
+  @property({ attribute: false }) getWidgetUrl: (widget: WidgetListingItem) => string =
+    (widget) => widget.href ?? `#/${widget.tag}`;
 
   render() {
     if (!this.widgets.length) {
@@ -101,6 +101,9 @@ export class WidgetCategorySection extends LitElement {
                 .description=${widget.shortDescription ?? widget.description}
                 .status=${widget.status}
                 .level=${widget.level}
+                .tagLabel=${widget.tagLabel ?? widget.tag}
+                .tagLabelMode=${widget.tagLabelMode ?? 'element'}
+                .metaLabel=${widget.metaLabel ?? ''}
                 .href=${this.getWidgetUrl(widget)}
               ></widget-card>
             `

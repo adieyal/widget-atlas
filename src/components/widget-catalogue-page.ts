@@ -1,15 +1,12 @@
 import { LitElement, css, html, nothing } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators.js';
 import { catalogue } from '../core/catalogue.js';
 import { buildWidgetUrl } from '../core/url-strategy.js';
-import type { WidgetMetadata } from '../core/types.js';
+import type { WidgetListingItem, WidgetListingSection } from '../core/types.js';
 import { formatUseCaseLabel } from './catalogue-constants.js';
 import { widgetAtlasControlStyles, widgetAtlasThemeStyles } from './shared-styles.js';
-import type { WidgetSearchResultsDetail } from './widget-search.js';
 
-import './widget-card.js';
-import './widget-category-section.js';
-import './widget-search.js';
+import './widget-listing-page.js';
 
 @customElement('widget-catalogue-page')
 export class WidgetCataloguePage extends LitElement {
@@ -19,56 +16,6 @@ export class WidgetCataloguePage extends LitElement {
     css`
       :host {
         display: block;
-        min-height: 100vh;
-        background: var(--_widget-atlas-page-bg);
-      }
-
-      .catalogue-container {
-        max-width: var(--_widget-atlas-layout-max);
-        margin: 0 auto;
-        padding: var(--_widget-atlas-space-2xl) var(--_widget-atlas-space-lg);
-      }
-
-      .catalogue-header {
-        margin-bottom: var(--_widget-atlas-space-2xl);
-      }
-
-      .hero {
-        display: grid;
-        grid-template-columns: var(--_widget-atlas-hero-columns);
-        gap: var(--_widget-atlas-hero-gap);
-        align-items: end;
-        margin-bottom: var(--_widget-atlas-space-xl);
-      }
-
-      .eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.45rem;
-        padding: 0.32rem 0.7rem;
-        border-radius: 999px;
-        background: var(--_widget-atlas-accent-soft);
-        color: var(--_widget-atlas-accent-strong);
-        font-size: 0.72rem;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      h1 {
-        margin: var(--_widget-atlas-space-sm) 0 var(--_widget-atlas-space-sm);
-        font-family: var(--_widget-atlas-title-font-family);
-        font-size: var(--_widget-atlas-title-size);
-        line-height: var(--_widget-atlas-title-line-height);
-        letter-spacing: var(--_widget-atlas-title-letter-spacing);
-        color: var(--_widget-atlas-title-color);
-      }
-
-      .subtitle {
-        max-width: 38rem;
-        margin: 0;
-        color: var(--_widget-atlas-subtitle-color);
-        font-size: var(--_widget-atlas-subtitle-size);
       }
 
       .stats-grid {
@@ -107,131 +54,37 @@ export class WidgetCataloguePage extends LitElement {
         line-height: 1;
       }
 
-      .stat-value--stable {
-        color: var(--_widget-atlas-success);
-      }
-
-      .stat-value--beta {
-        color: var(--_widget-atlas-accent-strong);
-      }
-
-      .stat-value--new {
-        color: var(--_widget-atlas-info);
-      }
-
-      .search-section {
-        margin-bottom: var(--_widget-atlas-space-2xl);
-      }
-
-      .results-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: var(--_widget-atlas-space-sm);
-        margin-bottom: var(--_widget-atlas-space-lg);
-      }
-
-      .results-header h2,
-      .empty-state h2 {
-        margin: 0;
-        font-size: 1.35rem;
-      }
-
-      .results-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-        gap: var(--_widget-atlas-space-lg);
-      }
-
-      .empty-state {
-        padding: var(--_widget-atlas-space-2xl);
-        text-align: center;
-        border: 1px dashed var(--_widget-atlas-border-strong);
-        border-radius: var(--_widget-atlas-radius-md);
-        background: var(--_widget-atlas-surface);
-      }
-
-      .empty-state p {
-        margin: var(--_widget-atlas-space-xs) auto 0;
-        max-width: 28rem;
-        color: var(--_widget-atlas-text-muted);
-      }
-
-      @media (max-width: 900px) {
-        .hero {
-          grid-template-columns: 1fr;
-        }
-
-        .stats-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-      }
+      .stat-value--stable { color: var(--_widget-atlas-success); }
+      .stat-value--beta   { color: var(--_widget-atlas-accent-strong); }
+      .stat-value--new    { color: var(--_widget-atlas-info); }
 
       @media (max-width: 640px) {
-        .catalogue-container {
-          padding-inline: var(--_widget-atlas-space-md);
-        }
-
         .stats-grid {
-          grid-template-columns: 1fr;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
       }
     `,
   ];
 
-  @state() private searchQuery = '';
-  @state() private searchResults: WidgetMetadata[] | null = null;
-  @state() private isSearching = false;
+  private get stats() { return catalogue.getStats(); }
+  private get groupedWidgets() { return catalogue.getGroupedByUseCase(); }
+  private get availableUseCases() { return catalogue.getUseCases(); }
 
-  private get stats() {
-    return catalogue.getStats();
-  }
+  private get sections(): WidgetListingSection[] {
+    return this.availableUseCases.flatMap((useCase) => {
+      const widgets = this.groupedWidgets.get(useCase);
+      if (!widgets?.length) {
+        return [];
+      }
 
-  private get groupedWidgets() {
-    return catalogue.getGroupedByUseCase();
-  }
-
-  private get availableUseCases() {
-    return catalogue.getUseCases();
-  }
-
-  private handleSearch(event: CustomEvent<WidgetSearchResultsDetail>): void {
-    this.searchQuery = event.detail.query;
-    this.searchResults = event.detail.results;
-    this.isSearching = Boolean(
-      event.detail.query ||
-        event.detail.filters.useCase ||
-        event.detail.filters.category ||
-        event.detail.filters.status
-    );
-  }
-
-  private clearSearch(): void {
-    this.searchQuery = '';
-    this.searchResults = null;
-    this.isSearching = false;
-    const search = this.shadowRoot?.querySelector('widget-search') as
-      | (HTMLElement & { query: string; useCase: string; category: string; status: string })
-      | undefined;
-    if (search) {
-      search.query = '';
-      search.useCase = '';
-      search.category = '';
-      search.status = '';
-    }
-  }
-
-  private renderCard(widget: WidgetMetadata) {
-    return html`
-      <widget-card
-        .name=${widget.name}
-        .tag=${widget.tag}
-        .description=${widget.shortDescription ?? widget.description}
-        .status=${widget.status}
-        .level=${widget.level}
-        .href=${buildWidgetUrl({ category: widget.category, tag: widget.tag })}
-      ></widget-card>
-    `;
+      return [
+        {
+          id: useCase,
+          heading: formatUseCaseLabel(useCase),
+          widgets,
+        },
+      ];
+    });
   }
 
   private renderStats() {
@@ -258,68 +111,28 @@ export class WidgetCataloguePage extends LitElement {
     `;
   }
 
-  private renderSearchResults() {
-    if (!this.searchResults?.length) {
-      return html`
-        <div class="empty-state">
-          <h2>No matching widgets</h2>
-          <p>Try a different keyword or broaden one of the filters.</p>
-        </div>
-      `;
-    }
-
-    return html`
-      <section>
-        <div class="results-header">
-          <h2>Search Results (${this.searchResults.length})</h2>
-          <button class="link-button" @click=${this.clearSearch} type="button">Clear search</button>
-        </div>
-        <div class="results-grid">${this.searchResults.map((widget) => this.renderCard(widget))}</div>
-      </section>
-    `;
-  }
-
-  private renderCategories() {
-    return html`
-      ${this.availableUseCases.map((useCase) => {
-        const widgets = this.groupedWidgets.get(useCase);
-        if (!widgets?.length) return nothing;
-
-        return html`
-          <widget-category-section
-            heading=${formatUseCaseLabel(useCase)}
-            .widgets=${widgets}
-            .getWidgetUrl=${(widget: WidgetMetadata) =>
-              buildWidgetUrl({ category: widget.category, tag: widget.tag })}
-          ></widget-category-section>
-        `;
-      })}
-    `;
-  }
-
   render() {
     return html`
-      <div class="catalogue-container">
-        <header class="catalogue-header">
-          <div class="hero">
-            <div>
-              <span class="eyebrow">Widget Atlas</span>
-              <h1>Browse the full component catalogue.</h1>
-              <p class="subtitle">
-                Explore reusable widgets by use case, inspect status and maturity, and jump into
-                hands-on examples and API details.
-              </p>
-            </div>
-            ${this.renderStats()}
-          </div>
-        </header>
-
-        <section class="search-section">
-          <widget-search @widget-search-results=${this.handleSearch}></widget-search>
-        </section>
-
-        ${this.isSearching ? this.renderSearchResults() : this.renderCategories()}
-      </div>
+      <widget-listing-page
+        heading="Browse the full component catalogue."
+        description="Explore reusable widgets by use case, inspect status and maturity, and jump into hands-on examples and API details."
+        filter-placeholder="Filter components..."
+        .eyebrow=${'Widget Atlas'}
+        .sections=${this.sections}
+        .getWidgetUrl=${(widget: WidgetListingItem) =>
+          buildWidgetUrl({ category: widget.category ?? 'atoms', tag: widget.tag })}
+        .sortOptions=${[
+          { value: 'name-asc', label: 'Name A → Z' },
+          { value: 'name-desc', label: 'Name Z → A' },
+          { value: 'category-asc', label: 'Category A → Z' },
+          { value: 'category-desc', label: 'Category Z → A' },
+        ]}
+        default-sort="name-asc"
+      >
+        ${this.sections.length
+          ? html`<div slot="header-aside">${this.renderStats()}</div>`
+          : nothing}
+      </widget-listing-page>
     `;
   }
 }

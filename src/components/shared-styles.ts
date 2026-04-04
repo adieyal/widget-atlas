@@ -222,3 +222,45 @@ export const widgetAtlasControlStyles = css`
     color: var(--_widget-atlas-accent);
   }
 `;
+
+export const widgetAtlasCardStyles = css`
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+    padding: var(--_widget-atlas-space-lg);
+    border: 1px solid var(--_widget-atlas-border);
+    border-radius: var(--_widget-atlas-radius-md);
+    background: var(--_widget-atlas-card-bg);
+    color: inherit;
+    text-decoration: none;
+    box-shadow: var(--_widget-atlas-shadow-sm);
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    border-color: var(--_widget-atlas-border-strong);
+    box-shadow: var(--_widget-atlas-shadow-md);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 4px;
+    border-radius: var(--_widget-atlas-radius-md) 0 0 var(--_widget-atlas-radius-md);
+    background: var(--_widget-atlas-card-accent-bg);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+
+  .card:hover::before {
+    opacity: 1;
+  }
+`;

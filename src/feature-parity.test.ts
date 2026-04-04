@@ -1,6 +1,7 @@
 import { catalogue } from './core/catalogue.js';
 import { WidgetCard } from './components/widget-card.js';
 import { WidgetCataloguePage } from './components/widget-catalogue-page.js';
+import { WidgetPageLayout } from './components/widget-page-layout.js';
 import { WidgetCategorySection } from './components/widget-category-section.js';
 import { WidgetSearch } from './components/widget-search.js';
 import { setWidgetUrlBuilder } from './core/url-strategy.js';
@@ -166,13 +167,14 @@ describe('widget-atlas parity surface', () => {
     expect(widgetAtlasThemeStyles.cssText).toContain('--widget-atlas-category-accent-bg,');
 
     const catalogueCss = WidgetCataloguePage.styles.map((style) => style.cssText).join('\n');
+    const pageLayoutCss = WidgetPageLayout.styles.map((style) => style.cssText).join('\n');
     const searchCss = WidgetSearch.styles.map((style) => style.cssText).join('\n');
     const categoryCss = WidgetCategorySection.styles.map((style) => style.cssText).join('\n');
     const cardCss = WidgetCard.styles.map((style) => style.cssText).join('\n');
 
-    expect(catalogueCss).toContain('background: var(--_widget-atlas-page-bg);');
+    expect(pageLayoutCss).toContain('background: var(--_widget-atlas-page-bg);');
+    expect(pageLayoutCss).toContain('font-family: var(--_widget-atlas-title-font-family);');
     expect(catalogueCss).toContain('grid-template-columns: var(--_widget-atlas-stats-grid-columns);');
-    expect(catalogueCss).toContain('font-family: var(--_widget-atlas-title-font-family);');
     expect(catalogueCss).toContain('flex-direction: var(--_widget-atlas-stat-card-direction);');
     expect(searchCss).toContain('background: var(--_widget-atlas-search-toolbar-bg);');
     expect(searchCss).toContain('display: var(--_widget-atlas-search-label-display);');
